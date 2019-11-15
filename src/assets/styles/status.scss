@@ -1,0 +1,53 @@
+
+
+$status1: #13a468;
+$status2: #36cbcb;
+$status3: #82ccef;
+$status4: #fbd437;
+$status5: #f2637b;
+$status6: #e5462f;
+$status7: #975fe5;
+$status8: #435188;
+$status9: #3aa1ff;
+$status10: #d6d6d6;
+.status1{
+    background: $status1!important;
+}
+.status2{
+    background: $status2!important;
+}
+.status3{
+    background: $status3!important;
+}
+.status4{
+    background: $status4!important;
+}
+.status5{
+    background: $status5!important;
+}
+.status6{
+    background: $status6!important;
+}
+.status7{
+    background: $status7!important;
+}
+.status8{
+    background: $status8!important;
+}
+.status9{
+    background: $status9!important;
+}
+.status10{
+    background: $status10!important;
+}
+.status-point{
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    padding: 0;
+    border-radius: 50%;
+    margin-right: 3px;
+    position: relative;
+    top: -1px;
+    overflow: hidden;
+}
