@@ -7,6 +7,7 @@
         </div>
         <div class="outher-info">
           <div class="top-title">
+<<<<<<< HEAD
             <span
               class="support-id copy-class"
               @click="copyAddress('复制成功', detail.support_id)"
@@ -34,12 +35,18 @@
             <el-tag type="info" size="mini">{{
               detail.deal_status_name
             }}</el-tag>
+=======
+            <span class="support-id copy-class" @click="copyAddress('复制成功',detail.support_id)">{{detail.support_id}}</span>
+            <span>{{detail.title}}</span>
+            <el-tag type="info" size="mini">{{detail.deal_status_name}}</el-tag>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             <el-link type="primary" @click="dialogDetail = true">
               详情
               <i class="el-icon-caret-bottom"></i>
             </el-link>
           </div>
           <div class="botton-desc">
+<<<<<<< HEAD
             <el-tag type="warning" :disable-transitions="true" size="mini">{{
               detail.range_level
             }}</el-tag>
@@ -86,26 +93,39 @@
                 "
               ></i>
             </el-tooltip>
+=======
+            <el-tag type="warning" :disable-transitions="true" size="mini">{{detail.range_level}}</el-tag>
+            <el-tag :disable-transitions="true" effect="dark" size="mini" type="danger">{{detail.range_name}}</el-tag>
+            <el-tag type="info" :disable-transitions="true" size="mini">{{detail.company_name}}</el-tag>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </div>
         </div>
       </div>
       <div class="right">
         <el-tooltip content="转交" placement="bottom">
+<<<<<<< HEAD
           <i
             class="iconfont icon-zhuanfa"
             v-if="isTec == 1"
             @click="dialogTransferOthers = true"
           ></i>
+=======
+          <i class="iconfont icon-zhuanfa" v-if="isTec == 1" @click="dialogTransferOthers=true"></i>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         </el-tooltip>
         <el-tooltip content="催办" placement="bottom">
           <i class="iconfont icon-chuizi" v-if="isTec == 0" @click="urgent"></i>
         </el-tooltip>
         <el-tooltip content="未解决" placement="bottom">
+<<<<<<< HEAD
           <i
             class="iconfont icon-zhuanfa1"
             v-if="detail.deal_status == '2'"
             @click="reprocessVisible = true"
           ></i>
+=======
+          <i class="iconfont icon-zhuanfa1" v-if="detail.deal_status == '2'" @click="reprocessVisible = true"></i>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         </el-tooltip>
         <el-tooltip content="更多" placement="bottom">
           <el-dropdown trigger="click" @command="handeleMore">
@@ -119,9 +139,13 @@
               <el-dropdown-item command="1" v-if="Number(detail.list_id) == 0">
                 <i class="iconfont icon-ico-bug"></i> 转BUG
               </el-dropdown-item>
+<<<<<<< HEAD
               <el-dropdown-item command="2" v-if="Number(detail.list_id) !== 0"
                 >关联需求ID {{ detail.list_id }}</el-dropdown-item
               >
+=======
+              <el-dropdown-item command="2" v-if="Number(detail.list_id) !== 0">关联需求ID {{detail.list_id}}</el-dropdown-item>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-dropdown-menu>
           </el-dropdown>
         </el-tooltip>
@@ -130,6 +154,7 @@
 
     <detail :dialogDetail.sync="dialogDetail" :detail="detail"></detail>
 
+<<<<<<< HEAD
     <transfer-others
       @transferOk="transferOk"
       :dialog.sync="dialogTransferOthers"
@@ -141,10 +166,16 @@
       :reprocessVisible.sync="reprocessVisible"
       :supportId="detail.support_id"
     ></reprocessing>
+=======
+    <transfer-others @transferOk="transferOk" :dialog.sync="dialogTransferOthers" :supportId="detail.support_id"></transfer-others>
+
+    <reprocessing :reprocessVisible.sync="reprocessVisible" :supportId="detail.support_id"></reprocessing>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import {
   getSupportDetail,
   getSupportNotify,
@@ -156,6 +187,16 @@ import Detail from './dialog/Detail'
 import TransferOthers from './dialog/TransferOthers'
 //重开技术支持
 import Reprocessing from '_c/workOrderChat/dialog/Reprocessing'
+=======
+import { getSupportDetail, getSupportNotify } from '@/api/conversation';
+import { getQuestionRange } from '@/api/common';
+import { mapGetters } from 'vuex';
+import Detail from './dialog/Detail';
+//转交他人
+import TransferOthers from './dialog/TransferOthers';
+//重开技术支持
+import Reprocessing from '_c/workOrderChat/dialog/Reprocessing';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     chatItemId: String
@@ -171,7 +212,10 @@ export default {
         support_id: '', //支持id
         list_id: '', //已需求id
         title: '', //标题
+<<<<<<< HEAD
         created_at: '', //创建时间
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         first_category: '', //一级分类
         second_category: '', //二级分类
         third_category: '', //三级分类
@@ -181,6 +225,7 @@ export default {
         demand_user_name: '', //提出技术支持的人名
         range_level: '', //优先级
         range_name: '', //影响范围名
+<<<<<<< HEAD
         company_name: '', //公司名
         product_id: '',
         file: [],
@@ -189,13 +234,22 @@ export default {
         difficulty_level: '' //分类难度
       }
     }
+=======
+        company_name: '' //公司名
+      }
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   watch: {
     chatItemId: {
       immediate: true,
       handler: function(newVal) {
         if (newVal !== '') {
+<<<<<<< HEAD
           this.getSupportDetail()
+=======
+          this.getSupportDetail();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         }
       }
     }
@@ -204,6 +258,7 @@ export default {
     ...mapGetters(['isTec'])
   },
   methods: {
+<<<<<<< HEAD
     setMarkProblemFn(flg, txt) {
       this.$confirm(txt, flg == '1' ? '标记' : '取消标记', {
         confirmButtonText: '确定',
@@ -240,6 +295,12 @@ export default {
       if (e == '0' || e == '1') {
         let urls = `/service-platform/submit-demand?questionId=${this.detail.question_num}&supportId=${this.detail.support_id}&isBug=${e}`
         this.$router.push(urls)
+=======
+    handeleMore(e) {
+      if (e == '0' || e == '1') {
+        let urls = `/service-platform/submit-demand?questionId=${this.detail.question_num}&supportId=${this.detail.support_id}&isBug=${e}`;
+        this.$router.push(urls);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     urgent() {
@@ -250,13 +311,20 @@ export default {
         type: 'warning'
       })
         .then(() => {
+<<<<<<< HEAD
           this.getSupportNotify()
         })
         .catch(() => {})
+=======
+          this.getSupportNotify();
+        })
+        .catch(() => {});
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     },
     //客服催办技术支持
     async getSupportNotify() {
       try {
+<<<<<<< HEAD
         let { message, data } = await getSupportNotify({
           support_id: this.detail.support_id
         })
@@ -282,6 +350,31 @@ export default {
         this._message(error)
       }
       this.detailLoading = false
+=======
+        let { message, data } = await getSupportNotify({ support_id: this.detail.support_id });
+        this._message(message, 'success');
+        this.$emit('supportUrgent', data.answer);
+      } catch (error) {
+        this._message(error);
+      }
+    },
+    transferOk() {
+      this.$emit('changeOk');
+    },
+    async getSupportDetail() {
+      this.detailLoading = true;
+      try {
+        let { data } = await getSupportDetail({ support_id: this.chatItemId });
+        Object.assign(this.detail, data);
+        this.$emit('sendDealStatus', {
+          dealStatus: data.deal_status,
+          dealButton: data.deal_button
+        });
+      } catch (error) {
+        this._message(error);
+      }
+      this.detailLoading = false;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
@@ -289,7 +382,11 @@ export default {
     TransferOthers,
     Reprocessing
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 <style lang="scss" scoped>
 .detail-wrapper {
@@ -338,6 +435,7 @@ export default {
       span {
         margin-right: 10px;
       }
+<<<<<<< HEAD
       .difficult-icon {
         font-size: 16px;
         margin: 0 3px;
@@ -346,6 +444,8 @@ export default {
       .icon-weixian {
         color: #f56c6c;
       }
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   }
   .right {
@@ -361,4 +461,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

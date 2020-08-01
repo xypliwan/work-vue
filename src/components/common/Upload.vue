@@ -13,6 +13,7 @@
       :show-file-list="false"
     >
       <!-- :disabled="list.length >= limit" -->
+<<<<<<< HEAD
       <el-button
         size="small"
         type="primary"
@@ -25,6 +26,14 @@
     <ul class="file-wrapper">
       <li class="file-item" v-for="(item, i) in list" :key="i">
         {{ item.name }}
+=======
+      <el-button size="small" type="primary" class="lod" v-show="list.length < limit">上传</el-button>
+      <div slot="tip" class="el-upload__tip desc-tip">{{desc}}</div>
+    </el-upload>
+    <ul class="file-wrapper">
+      <li class="file-item" v-for="(item,i) in list" :key="i">
+        {{item.name}}
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         <i class="iconfont icon-guanbi" @click="deleteItem(i)"></i>
       </li>
     </ul>
@@ -32,8 +41,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { getLocalStorage, removeLocalStorage } from '@/utils/localStorage'
 import baseURL from '@/config/baseUrl'
+=======
+import { getLocalStorage, removeLocalStorage } from '@/utils/localStorage';
+import baseURL from '@/config/baseUrl';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     limit: Number,
@@ -47,6 +61,7 @@ export default {
   data() {
     return {
       isLoading: null
+<<<<<<< HEAD
     }
   },
   computed: {
@@ -55,6 +70,16 @@ export default {
     },
     headers() {
       return { 'Access-Token': getLocalStorage('Access-Token') }
+=======
+    };
+  },
+  computed: {
+    uploadUrl() {
+      return baseURL.requestUrl + '/common/upload';
+    },
+    headers() {
+      return { 'Access-Token': getLocalStorage('Access-Token') };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
@@ -64,6 +89,7 @@ export default {
         text: '上传中',
         spinner: 'el-icon-loading',
         background: 'rgba(255, 255, 255, 0)'
+<<<<<<< HEAD
       })
     },
     deleteItem(i) {
@@ -92,6 +118,36 @@ export default {
     }
   }
 }
+=======
+      });
+    },
+    deleteItem(i) {
+      this.$emit('deleteFile', i);
+    },
+    handleSuccess(res) {
+      this.isLoading.close();
+      if (res.code == 200) {
+        if (res.error == 0) {
+          this.$emit('successOk', res.data);
+        } else if (res.error == 1001) {
+          removeLocalStorage('Access-Token');
+          setTimeout(() => {
+            window.open('http://crm.ecgtool.com/login', '_self');
+          }, 800);
+        } else {
+          this._message(`上传失败：${res.message}`);
+        }
+      } else {
+        this._message(`上传失败：${res.message}`);
+      }
+    },
+    hanldeError(err) {
+      this.isLoading.close();
+      this._message(`上传失败：${res.message}`);
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scope>
@@ -116,4 +172,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

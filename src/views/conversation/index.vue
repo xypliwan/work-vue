@@ -2,6 +2,7 @@
   <div>
     <div class="conversation-wrapper">
       <div class="left">
+<<<<<<< HEAD
         <conversation-list
           ref="conversationListRef"
           :chatItemId="chatItemId"
@@ -18,6 +19,13 @@
           ref="questionRef"
           @updateList="updateList"
         ></chat-layout>
+=======
+        <conversation-list ref="conversationListRef" :chatItemId="chatItemId" @selectChatItem="selectChatItem"></conversation-list>
+      </div>
+      <div class="right" v-show="chatItemId !== '' && !isFirstEnter">
+        <!-- 聊天窗口（头部，历史聊天，聊天框，及其他相关操作） -->
+        <chat-layout :chatItemId="chatItemId" @transferOk="transferOk" height="calc(100vh - 120px)" rightHeight="calc(100vh - 100px - 200px + 180px)" ref="questionRef" @updateList="updateList"></chat-layout>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       </div>
       <div class="right no-box" v-show="chatItemId == '' && isFirstEnter">
         <greetings-box></greetings-box>
@@ -27,17 +35,28 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import ConversationList from './ConversationList'
 import ChatLayout from '_c/workOrderChat/ChatLayout'
 import GreetingsBox from '_c/common/Greetings'
 import { mapGetters, mapActions } from 'vuex'
+=======
+import ConversationList from './ConversationList';
+import ChatLayout from '_c/workOrderChat/ChatLayout';
+import GreetingsBox from '_c/common/Greetings';
+import { mapGetters, mapActions } from 'vuex';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   data() {
     return {
       chatItemId: '',
       supportId: '',
       isFirstEnter: true
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   computed: {
     ...mapGetters(['draftList'])
@@ -50,6 +69,7 @@ export default {
         supportId: data.support_id,
         cont: data.combine_str,
         time: data.created_at
+<<<<<<< HEAD
       }
       this.$refs.conversationListRef.updateList(obj)
     },
@@ -81,12 +101,44 @@ export default {
     beforeSaveDraft() {
       let oldHtml = this.$refs.questionRef.getEditorHtml()
       this.$refs.questionRef.clearEditorHtml()
+=======
+      };
+      this.$refs.conversationListRef.updateList(obj);
+    },
+    transferOk() {
+      //转交工单其他人
+      this.isFirstEnter = true;
+      this.chatItemId = '';
+      this.$refs.conversationListRef.formParentSearch();
+    },
+    selectChatItem(obj) {
+      this.$nextTick(() => {
+        this.beforeSaveDraft();
+        this.isFirstEnter = false;
+        this.chatItemId = obj.questionId;
+        this.supportId = obj.supportId;
+
+        //每次切换时，判断当前新的工单是否【有】草稿
+        let hasItem = this.draftList.find(item => item.id == this.chatItemId && item.supportId == this.supportId);
+        if (hasItem) {
+          //工单
+          this.$nextTick(() => {
+            this.$refs.questionRef.showHtml(hasItem.cont);
+          });
+        }
+      });
+    },
+    beforeSaveDraft() {
+      let oldHtml = this.$refs.questionRef.getEditorHtml();
+      this.$refs.questionRef.clearEditorHtml();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       if (oldHtml.length > 0) {
         //当输入框内容不为空，记录为草稿
         let item = {
           id: this.chatItemId,
           cont: oldHtml,
           supportId: this.supportId
+<<<<<<< HEAD
         }
         //先删
         this.hasDraftDIndex(this.chatItemId, this.supportId)
@@ -111,18 +163,49 @@ export default {
 
         // console.log(findIndex,'findIndex')
         this.delDraftList(findIndex)
+=======
+        };
+        //先删
+        this.hasDraftDIndex(this.chatItemId, this.supportId);
+        //在增
+        this.setDraftList(item);
+      } else if (oldHtml.length == 0) {
+        this.$refs.conversationListRef.setItemCont(this.chatItemId, this.supportId);
+        //内容为空时
+        this.hasDraftDIndex(this.chatItemId, this.supportId);
+      }
+    },
+    hasDraftDIndex(id, supportId) {
+      
+      //查找草稿箱是否有当前的草稿
+      let findIndex = this.draftList.findIndex(item => item.id === id && item.supportId == supportId);
+      if (findIndex !== -1) {
+        //找到并且删除
+
+        
+        // console.log(findIndex,'findIndex')
+        this.delDraftList(findIndex);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
   beforeDestroy() {
+<<<<<<< HEAD
     this.beforeSaveDraft()
+=======
+    this.beforeSaveDraft();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   components: {
     ConversationList,
     ChatLayout,
     GreetingsBox
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>

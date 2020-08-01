@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <el-dialog
       title="转交技术支持"
       :append-to-body="true"
@@ -18,10 +19,16 @@
           class="demo-ruleForm"
           v-loading="formLoading"
         >
+=======
+    <el-dialog title="转交技术支持" :append-to-body="true" :visible.sync="dialog" width="500px" :before-close="handleClose">
+      <div>
+        <el-form size="small" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" v-loading="formLoading">
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           <el-form-item label>
             <div class="desc">你即将转交给其他人进行全权处理，请选择：</div>
           </el-form-item>
           <el-form-item label="技术人员" prop="change_people_id">
+<<<<<<< HEAD
             <el-select
               filterable
               clearable
@@ -49,6 +56,10 @@
                 v-for="(item, i) in remarkList"
                 :key="i"
               ></el-option>
+=======
+            <el-select filterable clearable v-model="ruleForm.change_people_id" placeholder="请选择">
+              <el-option :label="item.username" :value="item.user_id" v-for="(item,i) in userList" :key="i"></el-option>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-select>
           </el-form-item>
         </el-form>
@@ -62,6 +73,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { getTecPeople } from '@/api/servicePlatform'
 import { changeSupportTec } from '@/api/workbench'
 import { getRemark } from '@/api/common'
@@ -70,6 +82,14 @@ export default {
     dialog: Boolean,
     supportId: [String, Number],
     productId: [String, Number]
+=======
+import { getTecPeople } from '@/api/servicePlatform';
+import { changeSupportTec } from '@/api/workbench';
+export default {
+  props: {
+    dialog: Boolean,
+    supportId: [String, Number]
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   data() {
     return {
@@ -77,6 +97,7 @@ export default {
       userList: [],
       ruleForm: {
         support_id: '',
+<<<<<<< HEAD
         change_people_id: '',
         remark_id: ''
       },
@@ -98,11 +119,23 @@ export default {
         this.getTecPeople()
       }
     }
+=======
+        change_people_id: ''
+      },
+      rules: {
+        change_people_id: [{ required: true, message: '请选择', trigger: 'change' }]
+      }
+    };
+  },
+  mounted() {
+    this.getTecPeople();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   methods: {
     submit() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
+<<<<<<< HEAD
           this.changeSupportTec()
         } else {
           console.log('error submit!!')
@@ -147,6 +180,44 @@ export default {
     }
   }
 }
+=======
+          this.changeSupportTec();
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    async changeSupportTec() {
+      this.formLoading = true;
+      this.ruleForm.support_id = this.supportId;
+      try {
+        let { message } = await changeSupportTec(this.ruleForm);
+        this._message(message, 'success');
+        this.$emit('transferOk');
+        this.handleClose();
+      } catch (error) {
+        this._message(error);
+      }
+      this.formLoading = false;
+    },
+    async getTecPeople() {
+      this.formLoading = true;
+      try {
+        let { data } = await getTecPeople();
+        this.userList = data;
+      } catch (error) {
+        this._message(error);
+      }
+      this.formLoading = false;
+    },
+    handleClose() {
+      this.$refs.ruleForm.resetFields();
+      this.$emit('update:dialog', false);
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -158,4 +229,8 @@ export default {
 /deep/ .el-select {
   display: block;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

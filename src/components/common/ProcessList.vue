@@ -1,5 +1,6 @@
 <template>
   <div class="process-list-box">
+<<<<<<< HEAD
     <div v-for="(item, i) in list" :key="i">
       <div class="list-title">{{ item.title }}</div>
       <div
@@ -12,6 +13,16 @@
           {{ every.str }} ( <span>{{ every.num }}</span> )
         </div>
         <div class="every-desc">{{ every.desc }}</div>
+=======
+    <div v-for="(item,i) in list" :key="i">
+      <div class="list-title">{{item.title}}</div>
+      <div class="child" v-for="(every,j) in item.child" @click="handleItem(every)">
+        <div class="every-title">
+          {{every.str}} (
+          <span>{{every.num}}</span> )
+        </div>
+        <div class="every-desc">{{every.desc}}</div>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       </div>
     </div>
   </div>
@@ -25,10 +36,17 @@ export default {
   },
   methods: {
     handleItem(item) {
+<<<<<<< HEAD
       this.$emit('selectInfoType', { item, infoType: this.infoType })
     }
   }
 }
+=======
+      this.$emit('selectInfoType', { item, infoType: this.infoType });
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -63,4 +81,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+<<<<<<< HEAD
     <view-layout headerHeight="220px">
       <div slot="header">
         <div class="header-box">
@@ -63,10 +64,14 @@
         </div>
       </div>
     </view-layout>
+=======
+    <greetings-box></greetings-box>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import ViewLayout from '_c/common/Layout'
 import SystemList from '_c/common/SystemList'
 import { mapGetters } from 'vuex'
@@ -205,10 +210,19 @@ export default {
     TableList
   }
 }
+=======
+import GreetingsBox from '_c/common/Greetings';
+export default {
+  components: {
+    GreetingsBox
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
 .home {
+<<<<<<< HEAD
   .header-box {
     display: flex;
     height: 60px;
@@ -258,5 +272,11 @@ export default {
   .cont-box {
     padding-bottom: 53px;
   }
+=======
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 }
 </style>

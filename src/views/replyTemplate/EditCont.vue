@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <el-dialog
       :title="flg == '0' ? '新增板块' : '编辑板块'"
       :modal-append-to-body="false"
@@ -58,6 +59,24 @@
               placeholder="请输入内容"
               v-model="ruleForm.content"
             ></el-input>
+=======
+    <el-dialog :title="flg == '0' ? '新增板块' :'编辑板块'" :modal-append-to-body="false" :visible.sync="editVisible" width="600px" :before-close="handleClose">
+      <div>
+        <el-form :model="ruleForm" size="small" :rules="rules" ref="ruleForms" label-width="100px" class="demo-ruleForm" v-loading="formLoading">
+          <el-form-item label="板块名称" prop="category_id">
+            <el-select :disabled="flg == '1'" v-model="ruleForm.category_id" filterable clearable placeholder="请选择">
+              <el-option v-for="item in plateList" v-if="item.category_id !== ''" :key="item.category_id" :label="item.category_name" :value="item.category_id"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="模板名称" prop="template_name">
+            <el-input v-model="ruleForm.template_name" clearable placeholder="请输入"></el-input>
+          </el-form-item>
+          <el-form-item label="模板排序" prop="sort">
+            <el-input type="number" v-model="ruleForm.sort" clearable placeholder="请输入"></el-input>
+          </el-form-item>
+          <el-form-item label="模板内容" prop="content">
+            <el-input type="textarea" clearable :autosize="{ minRows: 2, maxRows: 8}" placeholder="请输入内容" v-model="ruleForm.content"></el-input>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </el-form-item>
         </el-form>
       </div>
@@ -70,7 +89,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { addTemplateCont, updateTemplateCont } from '@/api/replyTemplate'
+=======
+import { addTemplateCont, updateTemplateCont } from '@/api/replyTemplate';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 
 export default {
   props: {
@@ -100,18 +123,31 @@ export default {
         content: [{ required: true, message: '请选择', trigger: 'blur' }]
       },
       formLoading: false
+<<<<<<< HEAD
     }
   },
   watch: {
     flg(newVal) {
       this.ruleForm.category_id = this.categoryId
+=======
+    };
+  },
+  watch: {
+    flg(newVal) {
+      this.ruleForm.category_id = this.categoryId;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       if (newVal == '0') {
         //新增
       } else if (newVal == '1') {
         //编辑
         this.$nextTick(() => {
+<<<<<<< HEAD
           Object.assign(this.ruleForm, this.detailItem)
         })
+=======
+          Object.assign(this.ruleForm, this.detailItem);
+        });
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
@@ -121,6 +157,7 @@ export default {
         if (valid) {
           if (this.flg == '0') {
             //新增
+<<<<<<< HEAD
             this.addTemplateCont()
           } else if (this.flg == '1') {
             //编辑
@@ -164,3 +201,49 @@ export default {
 </script>
 
 <style lang="scss" scoped></style>
+=======
+            this.addTemplateCont();
+          } else if (this.flg == '1') {
+            //编辑
+            this.updateTemplates();
+          }
+        } else {
+          return false;
+        }
+      });
+    },
+    async updateTemplates() {
+      this.formLoading = true;
+      try {
+        let { message } = await updateTemplateCont(this.ruleForm);
+        this._message(message, 'success');
+        this.$emit('saveOk');
+        this.handleClose();
+      } catch (error) {
+        this._message(error);
+      }
+      this.formLoading = false;
+    },
+    async addTemplateCont() {
+      this.formLoading = true;
+      try {
+        let { message } = await addTemplateCont(this.ruleForm);
+        this._message(message, 'success');
+        this.handleClose();
+        this.$emit('saveOk');
+      } catch (error) {
+        this._message(error);
+      }
+      this.formLoading = false;
+    },
+    handleClose() {
+      this.$refs.ruleForms.resetFields();
+      this.$emit('close');
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

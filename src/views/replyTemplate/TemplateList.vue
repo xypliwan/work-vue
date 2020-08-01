@@ -2,6 +2,7 @@
   <div>
     <div class="box-title">
       回复模板板块
+<<<<<<< HEAD
       <i
         class="iconfont icon-plus-square"
         @click="editTemplate('0', {})"
@@ -29,11 +30,23 @@
               @click.stop="deleteTemplateItem(item)"
               v-if="delPermission"
             ></i>
+=======
+      <i class="iconfont icon-plus-square" @click="editTemplate('0',{})" v-if="addPermission"></i>
+    </div>
+    <div class="list" v-loading="templateLoading">
+      <ul>
+        <li v-for="(item,i) in templateList" :key="item.category_id" class="item" :class="currentIndex == item.category_id ? 'item-active' : ''" @click.stop="handleItem(item)">
+          {{item.category_name}}
+          <span class="operat-btn" v-show="i !== 0">
+            <i class="iconfont icon-xiugai-landi-" @click.stop="editTemplate('1',item)" v-if="updatePermission"></i>
+            <i class="iconfont icon-minus-square" @click.stop="deleteTemplateItem(item)" v-if="delPermission"></i>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </span>
         </li>
       </ul>
     </div>
 
+<<<<<<< HEAD
     <edit-template
       :editVisible="editVisible"
       @close="closeTemplate"
@@ -42,12 +55,20 @@
       :templateItem="templateItem"
       :isPublicCategory="isPublicCategory"
     ></edit-template>
+=======
+    <edit-template :editVisible="editVisible" @close="closeTemplate" @saveOk="saveOk" :flg="flg" :templateItem="templateItem" :isPublicCategory="isPublicCategory"></edit-template>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import EditTemplate from './EditTemplate'
 import { getTemplateList, deleteTemplate } from '@/api/replyTemplate'
+=======
+import EditTemplate from './EditTemplate';
+import { getTemplateList, deleteTemplate } from '@/api/replyTemplate';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     isPublicCategory: String
@@ -64,6 +85,7 @@ export default {
       addPermission: true,
       updatePermission: true,
       delPermission: true
+<<<<<<< HEAD
     }
   },
   watch: {
@@ -88,6 +110,30 @@ export default {
   },
   mounted() {
     this.getTemplateLists()
+=======
+    };
+  },
+  watch: {
+    isPublicCategory(newVal) {
+      this.currentIndex = '';
+      this.getTemplateLists();
+      if (newVal == '1') {
+        this.addPermission = this.hasPermissionBtn('reply-template-model-add');
+        this.updatePermission = this.hasPermissionBtn('reply-template-model-update');
+        this.delPermission = this.hasPermissionBtn('reply-template-model-del');
+      } else {
+        this.addPermission = true;
+        this.updatePermission = true;
+        this.delPermission = true;
+      }
+    },
+    currentIndex(newVal) {
+      this.$emit('changeCategoryId', newVal);
+    }
+  },
+  mounted() {
+    this.getTemplateLists();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   methods: {
     deleteTemplateItem(item) {
@@ -97,6 +143,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
+<<<<<<< HEAD
           this.deleteTemplate(item.category_id)
         })
         .catch(() => {})
@@ -112,10 +159,28 @@ export default {
     },
     async getTemplateLists() {
       this.templateLoading = true
+=======
+          this.deleteTemplate(item.category_id);
+        })
+        .catch(() => {});
+    },
+    async deleteTemplate(id) {
+      try {
+        let { message } = await deleteTemplate({ category_id: id });
+        this._message(message, 'success');
+        this.getTemplateLists();
+      } catch (error) {
+        this._message(error);
+      }
+    },
+    async getTemplateLists() {
+      this.templateLoading = true;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       let params = {
         is_public_category: this.isPublicCategory,
         page: 1,
         pageSize: 200
+<<<<<<< HEAD
       }
       try {
         let { data } = await getTemplateList(params)
@@ -141,12 +206,43 @@ export default {
     },
     handleItem(item) {
       this.currentIndex = item.category_id
+=======
+      };
+      try {
+        let { data } = await getTemplateList(params);
+        this.templateList = data;
+        this.$emit('sendPlate', this.templateList);
+      } catch (error) {
+        this._message(error);
+      }
+      this.templateLoading = false;
+    },
+    saveOk() {
+      this.getTemplateLists();
+    },
+    editTemplate(flg, item) {
+      this.flg = flg;
+      this.templateItem = item;
+      this.editVisible = true;
+    },
+    closeTemplate() {
+      this.editVisible = false;
+      this.templateItem = {};
+      this.flg = '';
+    },
+    handleItem(item) {
+      this.currentIndex = item.category_id;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
     EditTemplate
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,6 @@
 <template>
   <div class="search-condit">
+<<<<<<< HEAD
     <el-form
       size="small"
       :model="ruleForm"
@@ -185,12 +186,66 @@
           </el-form-item>
         </el-col>
       </el-row>
+=======
+    <el-form size="small" :model="ruleForm" label-position="top" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label="支持ID" prop="support_id">
+        <el-input v-model="ruleForm.support_id" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="ruleForm.title" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="支持类型" prop="support_type">
+        <el-radio-group v-model="ruleForm.support_type">
+          <el-radio label>全部</el-radio>
+          <el-radio label="1">异常</el-radio>
+          <el-radio label="2">咨询</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="所属公司" prop="company_id">
+        <el-select v-model="ruleForm.company_id" filterable clearable remote reserve-keyword placeholder="请输入公司名称搜索" :remote-method="remoteCompany" :loading="cLoading">
+          <el-option v-for="item in companyList" :key="item.company_id" :label="item.company_name" :value="item.company_id"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="发起人" prop="demand_user_id">
+        <el-select v-model="ruleForm.demand_user_id" filterable clearable remote reserve-keyword placeholder="请输入发起人名称搜索" :remote-method="remoteUser" :loading="uLoading">
+          <el-option v-for="item in userList" :key="item.id" :label="item.username" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="责任人" prop="resolve_user_id">
+        <el-select v-model="ruleForm.resolve_user_id" placeholder="请选择" filterable clearable>
+          <el-option v-for="(item,i) in filterData.resolveUser" :key="i" :label="item.username" :value="item.user_id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="影响范围" prop="range_id">
+        <el-select v-model="ruleForm.range_id" placeholder="请选择" filterable clearable>
+          <el-option v-for="(item,i) in filterData.range" :key="i" :label="item.name" :value="item.range_id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="时间段" prop="time_type">
+        <el-select v-model="ruleForm.time_type" placeholder="请选择" filterable clearable>
+          <el-option v-for="(item,i) in timeType" :key="i" :label="item.title" :value="item.index"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label prop="selectTime">
+        <el-date-picker value-format="yyyy-MM-dd HH:mm:ss" v-model="selectTime" @change="timeChange" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm">查询</el-button>
+        <el-button @click="resetForm()">重置</el-button>
+      </el-form-item>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     </el-form>
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import { getUserBySearch, getCompanyBySearch } from '@/api/common'
+=======
+import { getUserBySearch, getCompanyBySearch } from '@/api/common';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     filterData: Object
@@ -207,6 +262,7 @@ export default {
         time_type: '', //create 发起时间 last_update 最后更新时间
         start_at: '', //开始时间
         end_at: '', //结束时间
+<<<<<<< HEAD
         support_type: '', //1异常 2咨询
         desc: '',
         mark_problem: ''
@@ -216,10 +272,16 @@ export default {
         { title: '发起时间', index: 'create' },
         { title: '最后更新时间', index: 'last_update' }
       ],
+=======
+        support_type: '' //1异常 2咨询
+      },
+      timeType: [{ title: '发起时间', index: 'create' }, { title: '最后更新时间', index: 'last_update' }],
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       selectTime: [],
       companyList: [], //所属公司
       cLoading: false,
       userList: [], //发起人
+<<<<<<< HEAD
       uLoading: false,
       markProblemList: [
         { status: '', title: '全部' },
@@ -231,10 +293,20 @@ export default {
   watch: {
     filterData() {
       this.resetForm()
+=======
+      uLoading: false
+    };
+  },
+  watch: {
+    filterData(newVal) {
+      this.resetForm();
+      // this.submitForm();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
     async remoteCompany(query) {
+<<<<<<< HEAD
       if (!query) return
       this.cLoading = true
       try {
@@ -275,6 +347,47 @@ export default {
     }
   }
 }
+=======
+      if (!query) return;
+      this.cLoading = true;
+      try {
+        let { data } = await getCompanyBySearch({ keyword: query });
+        this.companyList = data;
+      } catch (error) {
+        this._message(error);
+      }
+      this.cLoading = false;
+    },
+    async remoteUser(query) {
+      if (!query) return;
+      this.uLoading = true;
+      try {
+        let { data } = await getUserBySearch({ keyword: query });
+        this.userList = data;
+      } catch (error) {
+        this._message(error);
+      }
+      this.uLoading = false;
+    },
+    submitForm() {
+      this.$emit('search', this.ruleForm);
+    },
+    resetForm() {
+      this.selectTime = [];
+      this.$refs.ruleForm.resetFields();
+    },
+    timeChange(e) {
+      if (e == null) {
+        this.ruleForm.start_at = '';
+        this.ruleForm.end_at = '';
+      } else {
+        this.ruleForm.start_at = this.selectTime[0];
+        this.ruleForm.end_at = this.selectTime[1];
+      }
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -294,4 +407,8 @@ export default {
     margin-bottom: 10px;
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

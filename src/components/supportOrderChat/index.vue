@@ -2,6 +2,7 @@
   <div>
     <view-layout headerHeight="100px">
       <div slot="header">
+<<<<<<< HEAD
         <support-header
           ref="supportHeader"
           @sendDealStatus="getDealStatus"
@@ -90,6 +91,26 @@
                       >
                       </el-option>
                     </el-select>
+=======
+        <support-header ref="supportHeader" @sendDealStatus="getDealStatus" :chatItemId="chatItemId" @changeOk="changeOk" @supportUrgent="supportUrgent"></support-header>
+      </div>
+      <div slot="content" class="content-boxs" ref="contentBoxs">
+        <div class="chat-box" :style="{'height':height}" ref="chatBox">
+          <split-pane @resize="resize" :min-percent="20" :default-percent="80" split="horizontal">
+            <template slot="paneL">
+              <chat-record class="chat-history" :supportId="chatItemId" ref="chatHistory"></chat-record>
+            </template>
+            <template slot="paneR">
+              <div class="input-box" v-loading="contLoading" element-loading-text="正在发送..." element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0)">
+                <chat-boxs @sendFile="sendFile" @sendInfo="sendInfo" ref="chatBoxs">
+                  <span slot="icon">
+                    <el-tooltip content="开始处理" placement="bottom" v-if="(dealStatus == '0' || dealStatus == '3') && dealButton == '1'">
+                      <i class="iconfont icon-kaishi1" v-if="(dealStatus == '0' || dealStatus == '3') && dealButton == '1'" @click="startProcessing"></i>
+                    </el-tooltip>
+                    <el-tooltip content="结束处理" placement="bottom" v-if="dealStatus == '1' && dealButton == '1'">
+                      <i class="iconfont icon-zanting1" v-if="dealStatus == '1' && dealButton == '1'" @click="invitationVisible = true"></i>
+                    </el-tooltip>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
                   </span>
                 </chat-boxs>
               </div>
@@ -99,15 +120,20 @@
       </div>
     </view-layout>
 
+<<<<<<< HEAD
     <initiate-invitation
       @changeStatus="changeStatus"
       :supportId="chatItemId"
       :invitationVisible.sync="invitationVisible"
     ></initiate-invitation>
+=======
+    <initiate-invitation @changeStatus="changeStatus" :supportId="chatItemId" :invitationVisible.sync="invitationVisible"></initiate-invitation>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import ViewLayout from '_c/common/Layout'
 import ChatBoxs from '_c/chat/Chat'
 import ChatRecord from './ChatRecord'
@@ -125,6 +151,17 @@ import {
 // 系统提醒
 import SystemRemind from '_c/common/SystemRemind'
 import splitPane from 'vue-splitpane'
+=======
+import ViewLayout from '_c/common/Layout';
+import ChatBoxs from '_c/chat/Chat';
+import ChatRecord from './ChatRecord';
+import SupportHeader from './SupportHeader';
+import InitiateInvitation from './dialog/InitiateInvitation';
+import { startSupportDeal } from '@/api/workbench';
+import { getSupportAnswer, addAnswer } from '@/api/conversation';
+import { mapGetters, mapActions } from 'vuex';
+import splitPane from 'vue-splitpane';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     chatItemId: String, //支持id
@@ -141,6 +178,7 @@ export default {
         file: {},
         question_id: '', //问题id
         support_id: '' //技术支持id
+<<<<<<< HEAD
       },
       systemRemindList: [],
       remindTagId: '', //系统提醒标签id
@@ -157,12 +195,20 @@ export default {
   },
   mounted() {
     this.getRemindTagFn()
+=======
+      }
+    };
+  },
+  computed: {
+    ...mapGetters(['dealStatusInfo', 'draftList'])
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   watch: {
     chatItemId: {
       immediate: true,
       handler: function(newVal) {
         if (newVal) {
+<<<<<<< HEAD
           this.$nextTick(() => {
             let chatInfoDoms = document.getElementsByClassName('chat-info')[0]
             let oprenBoxDoms = document.getElementsByClassName('opren-box')[0]
@@ -178,11 +224,21 @@ export default {
             }
             this.getRemindTagDetailFn()
           })
+=======
+          let chatInfoDoms = document.getElementsByClassName('chat-info')[0];
+          let oprenBoxDoms = document.getElementsByClassName('opren-box')[0];
+          let editorHeight = chatInfoDoms.clientHeight - oprenBoxDoms.clientHeight - 50;
+          this.$nextTick(() => {
+            this.$refs.chatBoxs.setEditorHeight(editorHeight);
+            this.$refs.chatBoxs.setFoucsEdit();
+          });
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         }
       }
     },
     dealStatusInfo(newVal) {
       if (newVal.support_id == this.chatItemId) {
+<<<<<<< HEAD
         this.$refs.supportHeader.detail.deal_status_name =
           newVal.deal_status_name
         this.dealStatus = newVal.deal_status
@@ -191,10 +247,15 @@ export default {
     supportRemind(newVal) {
       if (newVal) {
         this.systemRemindList.push(newVal)
+=======
+        this.$refs.supportHeader.detail.deal_status_name = newVal.deal_status_name;
+        this.dealStatus = newVal.deal_status;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
   methods: {
+<<<<<<< HEAD
     ...mapActions(['setDraftList', 'delDraftList', 'setDocumentTitleFlg']),
     async getRemindTagDetailFn() {
       try {
@@ -303,6 +364,61 @@ export default {
       // this.addAnswer();
       this.$refs.chatHistory.pushCont(info)
       this.$refs.supportHeader.getSupportDetail()
+=======
+    ...mapActions(['setDraftList', 'delDraftList']),
+    getEditorHtml() {
+      return this.$refs.chatBoxs.getHtml();
+    },
+    clearEditorHtml() {
+      this.$refs.chatBoxs.clearHtml();
+    },
+    showHtml(val) {
+      this.$refs.chatBoxs.showHtml(val);
+    },
+    resize() {
+      let chatInfoDoms = document.getElementsByClassName('chat-info')[0];
+      let oprenBoxDoms = document.getElementsByClassName('opren-box')[0];
+      let editorHeight = chatInfoDoms.clientHeight - oprenBoxDoms.clientHeight - 50;
+      this.$refs.chatBoxs.setEditorHeight(editorHeight);
+    },
+    supportUrgent(info) {
+      this.params.content = info.content;
+      this.addAnswer();
+    },
+    sendFile(data) {
+      //发送聊天信息----发送上传的图片
+      let cont = `<img src="${data.url}"  alt="${data.file_name}" />`;
+      this.params.content = cont;
+      this.addAnswer();
+    },
+    sendInfo(info) {
+      this.params.content = info;
+      this.addAnswer();
+    },
+    async addAnswer() {
+      if (this.params.content.length <= 0) {
+        return;
+      }
+      this.contLoading = true;
+      this.params.support_id = this.chatItemId;
+      try {
+        let { data } = await addAnswer(this.params);
+        this.$refs.chatHistory.pushCont(data);
+        this.$refs.chatBoxs.clearHtml();
+        this.$emit('updateList', data); //更新左侧列表
+      } catch (error) {
+        this._message(error);
+      }
+      this.contLoading = false;
+    },
+    changeStatus(data) {
+      this.dealStatus = data.deal_status;
+      let info = data.answer;
+      // this.params.content = info.content;
+      // this.addAnswer();
+      this.$refs.chatHistory.pushCont(info);
+      this.$refs.supportHeader.getSupportDetail();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     },
     startProcessing() {
       this.$confirm('确定开始处理该技术支持吗?', '提示', {
@@ -311,6 +427,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
+<<<<<<< HEAD
           this.startSupportDeal()
         })
         .catch(() => {})
@@ -327,15 +444,39 @@ export default {
         this.$refs.supportHeader.getSupportDetail()
       } catch (error) {
         this._message(error)
+=======
+          this.startSupportDeal();
+        })
+        .catch(() => {});
+    },
+    async startSupportDeal() {
+      try {
+        let { message, data } = await startSupportDeal({ support_id: this.chatItemId });
+        this.dealStatus = data.deal_status;
+        this._message(message, 'success');
+        let info = data.answer;
+        this.$refs.chatHistory.pushCont(info);
+        this.$refs.supportHeader.getSupportDetail();
+      } catch (error) {
+        this._message(error);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     getDealStatus(obj) {
       //获取处理状态
+<<<<<<< HEAD
       this.dealStatus = obj.dealStatus
       this.dealButton = obj.dealButton
     },
     changeOk() {
       this.$emit('changeOk')
+=======
+      this.dealStatus = obj.dealStatus;
+      this.dealButton = obj.dealButton;
+    },
+    changeOk() {
+      this.$emit('changeOk');
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
@@ -344,10 +485,16 @@ export default {
     ChatRecord,
     SupportHeader,
     InitiateInvitation,
+<<<<<<< HEAD
     splitPane,
     SystemRemind
   }
 }
+=======
+    splitPane
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -357,6 +504,7 @@ export default {
     flex: 1;
     .input-box {
       height: 100%;
+<<<<<<< HEAD
       .remand-tag {
         display: inline-block;
         float: right;
@@ -370,6 +518,8 @@ export default {
           line-height: 20px;
         }
       }
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
     .chat-history {
       padding: 10px 0px;
@@ -380,4 +530,8 @@ export default {
     opacity: 0.1;
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

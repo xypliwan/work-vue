@@ -10,6 +10,7 @@
       <div slot="content">
         <div class="content-wrapper">
           <div class="left cont-item">
+<<<<<<< HEAD
             <template-list
               @changeCategoryId="changeCategoryId"
               :isPublicCategory="activeName"
@@ -22,6 +23,12 @@
               :activeName="activeName"
               :categoryId="categoryId"
             ></content-list>
+=======
+            <template-list @changeCategoryId="changeCategoryId" :isPublicCategory="activeName" @sendPlate="getPlate"></template-list>
+          </div>
+          <dir class="right cont-item">
+            <content-list :plateList="plateList" :activeName="activeName" :categoryId="categoryId"></content-list>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </dir>
         </div>
       </div>
@@ -30,9 +37,15 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import ViewLayout from '_c/common/Layout'
 import TemplateList from './TemplateList'
 import ContentList from './ContentList'
+=======
+import ViewLayout from '_c/common/Layout';
+import TemplateList from './TemplateList';
+import ContentList from './ContentList';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 
 export default {
   data() {
@@ -41,15 +54,26 @@ export default {
 
       plateList: [],
       categoryId: ''
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
 
   methods: {
     getPlate(list) {
+<<<<<<< HEAD
       this.plateList = list
     },
     changeCategoryId(id) {
       this.categoryId = id
+=======
+      this.plateList = list;
+    },
+    changeCategoryId(id) {
+      this.categoryId = id;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
@@ -57,7 +81,11 @@ export default {
     TemplateList,
     ContentList
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 <style lang="scss" scoped>
 @import '@/assets/styles/global.scss';

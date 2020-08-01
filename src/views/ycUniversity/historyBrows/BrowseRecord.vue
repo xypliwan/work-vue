@@ -2,6 +2,7 @@
   <div>
     <div class="box-title">
       浏览记录 &nbsp;&nbsp;&nbsp;
+<<<<<<< HEAD
       <span
         v-for="(item, i) in timeType"
         :key="i"
@@ -9,6 +10,9 @@
         @click="changeSearch(item, i)"
         >{{ item.title }}</span
       >
+=======
+      <span v-for="(item,i) in timeType" :key="i" :class="currentIndex == i ? 'active' : ''" @click="changeSearch(item,i)">{{item.title}}</span>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       &nbsp;&nbsp;&nbsp;
       <span>指定时间段</span>
       &nbsp;&nbsp;&nbsp;
@@ -24,6 +28,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
       ></el-date-picker>
+<<<<<<< HEAD
       <i
         class="iconfont icon-xingtaiduICON_sousuo-- searchicon"
         @click="searchs"
@@ -48,6 +53,20 @@
                 <div class="name" @click="toDetail(item)">{{ item.title }}</div>
                 <div class="cont">{{ toStr(item.content) }}</div>
                 <div class="update-time">更新时间: {{ item.updated_at }}</div>
+=======
+      <i class="iconfont icon-xingtaiduICON_sousuo-- searchicon" @click="searchs"></i>
+    </div>
+
+    <div class="list-box">
+      <left-scroll :hasMore="noMore" :isLoadings="isloading" @loadingData="loadMore">
+        <div slot="dataList">
+          <el-timeline>
+            <el-timeline-item :key="i" v-for="(item,i) in list" :timestamp="item.created_at" placement="top">
+              <el-card shadow="hover">
+                <div class="name" @click="toDetail(item)">{{item.title}}</div>
+                <div class="cont">{{toStr(item.content)}}</div>
+                <div class="update-time">更新时间: {{item.updated_at}}</div>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
               </el-card>
             </el-timeline-item>
           </el-timeline>
@@ -57,19 +76,30 @@
   </div>
 </template>
 <script>
+<<<<<<< HEAD
 import { getHistoryLog } from '@/api/ycUniversity'
 import { mapGetters } from 'vuex'
 import { delHtmlTag } from '_u/utils'
 import LeftScroll from '_c/common/Scroll'
+=======
+import { getHistoryLog } from '@/api/ycUniversity';
+import { mapGetters } from 'vuex';
+import { delHtmlTag } from '_u/utils';
+import LeftScroll from '_c/common/Scroll';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   data() {
     return {
       currentIndex: 2,
+<<<<<<< HEAD
       timeType: [
         { type: 1, title: '近1天' },
         { type: 7, title: '近7天' },
         { type: 30, title: '近30天' }
       ],
+=======
+      timeType: [{ type: 1, title: '近1天' }, { type: 7, title: '近7天' }, { type: 30, title: '近30天' }],
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       times: [new Date(), new Date()],
       params: {
         page: 1,
@@ -82,6 +112,7 @@ export default {
       list: [],
       noMore: false,
       isloading: false
+<<<<<<< HEAD
     }
   },
   computed: {
@@ -107,10 +138,38 @@ export default {
     },
     eyesightIndex() {
       this.searchs()
+=======
+    };
+  },
+  computed: {
+    ...mapGetters(['currentSystemIdx', 'eyesightIndex']),
+    toStr(str) {
+      return str => {
+        return delHtmlTag(str);
+      };
+    }
+  },
+  mounted() {
+    const start = new Date();
+    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+
+    this.times = [start, new Date()];
+    if (this.currentSystemIdx !== '') {
+      this.getHistoryLog();
+    }
+  },
+  watch: {
+    currentSystemIdx(newVal) {
+      this.searchs();
+    },
+    eyesightIndex(newVal) {
+      this.searchs();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
     toDetail(item) {
+<<<<<<< HEAD
       let url = window.location.origin + '/#/detail/' + item.knowledge_id
       window.open(url, '_blank')
     },
@@ -151,12 +210,55 @@ export default {
     loadMore() {
       this.params.page++
       this.getHistoryLog()
+=======
+      let url = window.location.origin + '/#/detail/' + item.knowledge_id;
+      window.open(url, '_blank');
+    },
+    handleChange() {
+      this.currentIndex = null;
+    },
+    async getHistoryLog() {
+      this.isloading = true;
+      this.params.start_time = this.$moment(this.times[0]).format('YYYY-MM-DD HH:mm:ss');
+      this.params.end_time = this.$moment(this.times[1]).format('YYYY-MM-DD HH:mm:ss');
+      this.params.product_id = this.currentSystemIdx;
+      this.params.eyesight_id = this.eyesightIndex;
+      try {
+        let { data } = await getHistoryLog(this.params);
+        this.noMore = data.length < this.params.pageSize ? true : false;
+        this.list = [...this.list, ...data];
+      } catch (error) {
+        this._message(error);
+      }
+      this.isloading = false;
+    },
+    searchs() {
+      this.list = [];
+      this.params.page = 1;
+      this.getHistoryLog();
+    },
+    changeSearch(item, i) {
+      this.currentIndex = i;
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * item.type);
+      this.times = [start, new Date()];
+      this.searchs();
+    },
+    loadMore() {
+      this.params.page++;
+      this.getHistoryLog();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
     LeftScroll
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -219,4 +321,8 @@ export default {
     padding-bottom: 40px;
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

@@ -3,6 +3,7 @@
     <div class="left">
       <div class="box-title">
         一级板块
+<<<<<<< HEAD
         <i
           class="iconfont icon-plus-square"
           @click="editPlate('0', {})"
@@ -30,12 +31,24 @@
                 @click="deleteItem(item)"
                 v-if="hasPermissionBtn('first-model-del')"
               ></i>
+=======
+        <i class="iconfont icon-plus-square" @click="editPlate('0',{})" v-if="hasPermissionBtn('first-model-add')"></i>
+      </div>
+      <div class="list" v-loading="palteLoading">
+        <ul>
+          <li v-for="(item,i) in palteList" :key="item.km_id" class="item" :class="currentIndex == item.km_id ? 'item-active' : ''" @click.stop="changeItem(item.km_id)">
+            {{item.title}}
+            <span class="operat-btn" v-show="i !== 0">
+              <i class="iconfont icon-xiugai-landi-" @click="editPlate('1',item)" v-if="hasPermissionBtn('first-model-edit')"></i>
+              <i class="iconfont icon-minus-square" @click="deleteItem(item)" v-if="hasPermissionBtn('first-model-del')"></i>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </span>
           </li>
         </ul>
       </div>
     </div>
     <div class="right">
+<<<<<<< HEAD
       <secondary-plate
         :forthStatus="forthStatus"
         :openStatus="openStatus"
@@ -53,13 +66,25 @@
       @close="close"
       @saveOk="getFirstModelLists"
     ></edit-plate>
+=======
+      <secondary-plate :forthStatus="forthStatus" :openStatus="openStatus" :palteList="palteList" :currentIndex="currentIndex"></secondary-plate>
+    </div>
+
+    <edit-plate :forthStatus="forthStatus" :openStatus="openStatus" :flg="flg" :detailItem="detailItem" :dialogPlate="dialogPlate" @close="close" @saveOk="getFirstModelLists"></edit-plate>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import EditPlate from './EditPlate'
 import SecondaryPlate from './SecondaryPlate'
 import { getFirstModelList, deleteFirstModel } from '@/api/ycUniversity'
+=======
+import EditPlate from './EditPlate';
+import SecondaryPlate from './SecondaryPlate';
+import { getFirstModelList, deleteFirstModel } from '@/api/ycUniversity';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     forthStatus: [Array], //是否面向客户
@@ -73,10 +98,17 @@ export default {
       palteList: [],
       palteLoading: false,
       currentIndex: ''
+<<<<<<< HEAD
     }
   },
   created() {
     this.getFirstModelLists()
+=======
+    };
+  },
+  created() {
+    this.getFirstModelLists();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   methods: {
     deleteItem(item) {
@@ -86,6 +118,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
+<<<<<<< HEAD
           this.deleteFirstModel(item.km_id)
         })
         .catch(() => {})
@@ -121,13 +154,54 @@ export default {
       this.flg = ''
       this.detailItem = {}
       this.dialogPlate = false
+=======
+          this.deleteFirstModel(item.km_id);
+        })
+        .catch(() => {});
+    },
+    async deleteFirstModel(id) {
+      try {
+        let { message } = await deleteFirstModel({ km_id: id });
+        this._message(message, 'success');
+        this.getFirstModelLists();
+      } catch (error) {
+        this._message(error);
+      }
+    },
+    changeItem(id) {
+      this.currentIndex = id;
+    },
+    async getFirstModelLists() {
+      this.palteLoading = true;
+      try {
+        let { data } = await getFirstModelList();
+        this.palteList = data;
+      } catch (error) {
+        this._message(error);
+      }
+      this.palteLoading = false;
+    },
+    editPlate(flg, item) {
+      this.flg = flg;
+      this.detailItem = item;
+      this.dialogPlate = true;
+    },
+    close() {
+      this.flg = '';
+      this.detailItem = {};
+      this.dialogPlate = false;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
     EditPlate,
     SecondaryPlate
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -197,3 +271,7 @@ export default {
   }
 }
 </style>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

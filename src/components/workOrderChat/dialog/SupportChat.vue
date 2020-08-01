@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="support-chat-box" :style="{ height: height }">
     <div class="support-chat-title">
       <div class="left">
@@ -28,6 +29,14 @@
             )
           }}</el-tag
         >&nbsp;
+=======
+  <div class="support-chat-box" :style="{'height':height}">
+    <div class="support-chat-title">
+      <div class="left">
+        <span class="support-txt">{{supportDetail.support_id}}</span>
+        {{supportDetail.resolve_user_name}}
+        <el-tag size="mini" effect="dark" :type="getMappingVal(supportRes,'index',supportDetail.deal_status,'type')">{{getMappingVal(supportRes,'index',supportDetail.deal_status,'title')}}</el-tag>&nbsp;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         <el-link type="primary" @click="dialogDetail = true">
           详情
           <i class="el-icon-caret-bottom"></i>
@@ -35,6 +44,7 @@
       </div>
       <div class="right">
         <el-tooltip content="催办" placement="bottom">
+<<<<<<< HEAD
           <i
             class="iconfont icon-chuizi"
             v-if="chatService == '1' && supportDetail.deal_status !== '2'"
@@ -87,10 +97,24 @@
       :supportId="supportId"
       :invitationVisible.sync="supportInvitationVisible"
     ></support-evaluation>
+=======
+          <i class="iconfont icon-chuizi" v-if="chatService == '1' && supportDetail.deal_status !== '2'" @click="urgent"></i>
+        </el-tooltip>
+        <el-tooltip content="未解决" placement="bottom">
+          <i class="iconfont icon-zhuanfa1" v-if="supportDetail.deal_status == '2'" @click="reprocessVisible = true"></i>
+        </el-tooltip>
+      </div>
+    </div>
+    <chat-box ref="chatBox" :chatItemId="supportId" :hasMore="hasMore" :isLoadings="isLoadings" :direction="direction" :dataList="dataList" @loadingData="loadingData" @canCancel="canCancelInfo"></chat-box>
+    <reprocessing :reprocessVisible.sync="reprocessVisible" @unsolved="unsolved" :supportId="supportId"></reprocessing>
+
+    <support-detail :dialogDetail.sync="dialogDetail" :detail="supportDetail"></support-detail>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import {
   getSupportAnswer,
   cancelSend,
@@ -105,6 +129,14 @@ import SupportDetail from '_c/supportOrderChat/dialog/Detail'
 //发起技术邀评
 import SupportEvaluation from './SupportEvaluation'
 
+=======
+import { getSupportAnswer, cancelSend, getSupportDetail, getSupportNotify, setAnswerRead } from '@/api/conversation';
+import Scroll from '_c/common/Scroll';
+import Reprocessing from './Reprocessing';
+import { mapGetters } from 'vuex';
+import ChatBox from '_c/common/ChatBox';
+import SupportDetail from '_c/supportOrderChat/dialog/Detail';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     supportId: String,
@@ -119,10 +151,17 @@ export default {
       },
       hasMore: false,
       isLoadings: false,
+<<<<<<< HEAD
       dataList: [],
       isFirstEnter: false,
       supportDetail: {
         question_id: '',
+=======
+      direction: false,
+      dataList: [],
+      isFirstEnter: false,
+      supportDetail: {
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         support_id: '',
         title: '',
         support_type: '',
@@ -136,11 +175,22 @@ export default {
         { title: '未解决', index: '3', type: 'danger' }
       ],
       reprocessVisible: false,
+<<<<<<< HEAD
       dialogDetail: false,
       times: 0,
       supportInvitationVisible: false
     }
   },
+=======
+      dialogDetail: false
+    };
+  },
+  created() {
+    this.getSupportDetail();
+    this.getSupportAnswer();
+  },
+
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   async mounted() {
     // let titleHeight = this.$refs.scrolls.$refs.wrapper.clientHeight;
     // this.$refs.scrolls.$refs.wrapper.style.height = titleHeight - 40 + 'px';
@@ -151,6 +201,7 @@ export default {
     // });
   },
   computed: {
+<<<<<<< HEAD
     ...mapGetters([
       'support',
       'cancelAnswer',
@@ -158,12 +209,16 @@ export default {
       'answerReadSupport',
       'chatService'
     ])
+=======
+    ...mapGetters(['support', 'cancelAnswer', 'dealStatusInfo', 'answerReadSupport', 'chatService'])
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   watch: {
     answerReadSupport(newVal) {
       if (newVal.support_id == this.supportId) {
         this.dataList.forEach(el => {
           if (el.answer_id == newVal.answer_id) {
+<<<<<<< HEAD
             el.is_read = 1
           }
         })
@@ -178,22 +233,45 @@ export default {
           this.getSupportDetail()
           this.getSupportAnswer()
         }
+=======
+            el.is_read = 1;
+          }
+        });
+      }
+    },
+    supportId(newVal) {
+      if (newVal !== '') {
+        this.params.page = 1;
+        this.dataList = [];
+        this.getSupportDetail();
+        this.getSupportAnswer();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     dealStatusInfo(newVal) {
       if (newVal.support_id == this.supportId) {
+<<<<<<< HEAD
         this.supportDetail.deal_status = newVal.deal_status
+=======
+        this.supportDetail.deal_status = newVal.deal_status;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     support(newVal) {
       //添加对方输入的消息
       if (newVal.support_id == this.supportId) {
+<<<<<<< HEAD
         this.pushCont(newVal)
         this.setAnswerRead(newVal.answer_id)
+=======
+        this.pushCont(newVal);
+        this.setAnswerRead(newVal.answer_id);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     cancelAnswer(newVal) {
       //删除对方测回的消息
+<<<<<<< HEAD
       if (
         newVal.answer_type == 'support' &&
         newVal.support_id == this.supportId
@@ -203,10 +281,19 @@ export default {
             this.dataList.splice(i, 1)
           }
         })
+=======
+      if (newVal.answer_type == 'support' && newVal.support_id == this.supportId) {
+        this.dataList.forEach((el, i) => {
+          if (el.answer_id == newVal.answer_id) {
+            this.dataList.splice(i, 1);
+          }
+        });
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
   methods: {
+<<<<<<< HEAD
     clearDataList() {
       this.dataList = []
     },
@@ -215,10 +302,18 @@ export default {
         await setAnswerRead({ answer_id: id })
       } catch (error) {
         this._message(error)
+=======
+    async setAnswerRead(id) {
+      try {
+        let { data } = await setAnswerRead({ answer_id: id });
+      } catch (error) {
+        this._message(error);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     unsolved(obj) {
       //未解决重开技术支持
+<<<<<<< HEAD
       this.supportDetail.deal_status = obj.deal_status
       this.pushCont(obj.answer)
     },
@@ -233,6 +328,22 @@ export default {
     canCancelInfo(obj) {
       //测回消息
       this.cancelSend(obj.id, obj.index)
+=======
+      this.supportDetail.deal_status = obj.deal_status;
+      this.pushCont(obj.answer);
+    },
+    pushCont(item) {
+      //发送信息
+      item.msgLoading = false;
+      this.dataList.push(item);
+      this.$nextTick(() => {
+        this.$refs.chatBox.setScrollTops();
+      });
+    },
+    canCancelInfo(obj) {
+      //测回消息
+      this.cancelSend(obj.id, obj.index);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     },
     urgent() {
       //催办
@@ -242,13 +353,20 @@ export default {
         type: 'warning'
       })
         .then(() => {
+<<<<<<< HEAD
           this.getSupportNotify()
         })
         .catch(() => {})
+=======
+          this.getSupportNotify();
+        })
+        .catch(() => {});
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     },
     //客服催办技术支持
     async getSupportNotify() {
       try {
+<<<<<<< HEAD
         let { message, data } = await getSupportNotify({
           support_id: this.supportId
         })
@@ -256,10 +374,18 @@ export default {
         this.$emit('supportUrgent', data.answer)
       } catch (error) {
         this._message(error)
+=======
+        let { message, data } = await getSupportNotify({ support_id: this.supportId });
+        this._message(message, 'success');
+        this.$emit('supportUrgent', data.answer);
+      } catch (error) {
+        this_message(error);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     async getSupportDetail() {
       try {
+<<<<<<< HEAD
         let { data } = await getSupportDetail({
           support_id: this.supportId
         })
@@ -323,6 +449,57 @@ export default {
     SupportEvaluation
   }
 }
+=======
+        let { data } = await getSupportDetail({ support_id: this.supportId });
+        Object.assign(this.supportDetail, data);
+      } catch (error) {
+        this._message(error);
+      }
+    },
+    async cancelSend(answerId, i) {
+      this.$set(this.dataList[i], 'msgLoading', true);
+      try {
+        let { data } = await cancelSend({ answer_id: answerId, answer_type: 'support' });
+        this.dataList.splice(i, 1);
+      } catch (error) {
+        this.$set(this.dataList[i], 'msgLoading', false);
+        this._message(error);
+      }
+    },
+    loadingData(oldHeight) {
+      this.params.page++;
+      this.getSupportAnswer(oldHeight);
+    },
+    async getSupportAnswer(oldHeight = null) {
+      this.isLoadings = true;
+      this.params.support_id = this.supportId;
+      try {
+        let { data } = await getSupportAnswer(this.params);
+        let snapData = data.reverse();
+        this.hasMore = data.length < this.params.pageSize;
+        this.dataList = [...snapData, ...this.dataList];
+
+        this.dataList.forEach(el => {
+          el.msgLoading = false;
+        });
+
+        if (this.$refs['chatBox'] !== undefined) {
+          this.$refs.chatBox.resetScrollHeight(oldHeight);
+        }
+      } catch (error) {
+        this._message(error);
+      }
+      this.isLoadings = false;
+    }
+  },
+  components: {
+    Scroll,
+    Reprocessing,
+    ChatBox,
+    SupportDetail
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -343,8 +520,11 @@ export default {
       .support-txt {
         color: #409eff;
         font-size: 14px;
+<<<<<<< HEAD
         cursor: pointer;
         margin-left: 0 !important;
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
     .right {
@@ -359,4 +539,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

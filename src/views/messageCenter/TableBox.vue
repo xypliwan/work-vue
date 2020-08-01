@@ -1,5 +1,6 @@
 <template>
   <div class="message-table">
+<<<<<<< HEAD
     <el-button
       type="primary"
       size="mini"
@@ -27,6 +28,21 @@
           <p class="bottom" v-html="item.content"></p>
         </div>
         <div class="times fr">{{ item.created_at }}</div>
+=======
+    <el-button type="primary" size="mini" v-show="isRead == '0' && tableData.length > 0" @click="setReadsFromId">全部标记为已读</el-button>
+    <div class="table-wrapper" v-loading="tableLoading">
+      <div class="table-item" v-for="(item,i) in tableData" :key="i" @click="toDetail(item)">
+        <div class="icon-box fl">
+          <i class="iconfont" :class="isRead == '0' ? 'icon--yiduweidu' : 'icon-yidu'"></i>
+        </div>
+        <div class="info">
+          <h5 class="top">{{item.label}}</h5>
+          <!-- 【{{item.redirect_id}}】 -->
+          <p class="center">{{item.title}}</p>
+          <p class="bottom" v-html="item.content"></p>
+        </div>
+        <div class="times fr">{{item.created_at}}</div>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       </div>
       <div class="no-data" v-show="tableData.length <= 0">暂无数据</div>
     </div>
@@ -46,8 +62,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { getMessageList, setRead } from '@/api/messageCenter'
 import { mapGetters } from 'vuex'
+=======
+import { getMessageList, setRead } from '@/api/messageCenter';
+import { mapGetters } from 'vuex';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     isRead: String
@@ -63,6 +84,7 @@ export default {
       tableData: [],
       total: null,
       pageSizeArr: [10, 20, 50, 100]
+<<<<<<< HEAD
     }
   },
   mounted() {
@@ -72,6 +94,17 @@ export default {
     isRead() {
       this.params.page = 1
       this.getMessageList()
+=======
+    };
+  },
+  mounted() {
+    this.getMessageList();
+  },
+  watch: {
+    isRead(newVal) {
+      this.params.page = 1;
+      this.getMessageList();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   computed: {
@@ -80,11 +113,16 @@ export default {
   methods: {
     toDetail(item) {
       if (this.isRead == '0') {
+<<<<<<< HEAD
         this.setRead(item.id)
+=======
+        this.setRead(item.id);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
       if (item.message_type == '1') {
         //为工单
         //跳往会话窗口
+<<<<<<< HEAD
         this.$router.push(`/conversation?message_type=1`)
       } else if (item.message_type == '2') {
         //为技术支持
@@ -131,6 +169,54 @@ export default {
     }
   }
 }
+=======
+        this.$router.push(`/conversation?message_type=1`);
+      } else if (item.message_type == '2') {
+        //为技术支持
+        //跳往支持会话窗口
+        this.$router.push(`/technical-conversation?message_type=1`);
+      }
+    },
+    setReadsFromId() {
+      let ids = this.tableData.map(el => el.id);
+      this.setRead(ids);
+    },
+    async setRead(id) {
+      this.tableLoading = true;
+      try {
+        let { message } = await setRead({ ids: id });
+        // this._message(message, 'success');
+        this.getMessageList();
+      } catch (error) {
+        this._message(error);
+      }
+      this.tableLoading = false;
+    },
+    async getMessageList() {
+      this.params.is_read = this.isRead;
+      this.tableLoading = true;
+      try {
+        let { data, paginator } = await getMessageList(this.params);
+        this.tableData = data;
+        this.total = paginator.totalCount;
+      } catch (error) {
+        this._message(error);
+      }
+      this.tableLoading = false;
+    },
+    handleSizeChange(e) {
+      //设置显示一页展示多少条数
+      this.params.pageSize = e;
+      this.getMessageList();
+    },
+    handleCurrentChange(e) {
+      //点击第几页
+      this.params.page = e;
+      this.getMessageList();
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -183,4 +269,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

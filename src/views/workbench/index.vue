@@ -18,6 +18,7 @@
         </div>
         <div class="components-wrapper">
           <el-tabs v-model="componentsType">
+<<<<<<< HEAD
             <el-tab-pane
               label="系统工单"
               name="1"
@@ -33,6 +34,11 @@
               name="3"
               v-if="hasPermissionBtn('need')"
             ></el-tab-pane>
+=======
+            <el-tab-pane label="系统工单" name="1" v-if="hasPermissionBtn('system-question')"></el-tab-pane>
+            <el-tab-pane label="技术支持" name="2" v-if="hasPermissionBtn('tec-support')"></el-tab-pane>
+            <el-tab-pane label="需求管理" name="3" v-if="hasPermissionBtn('need')"></el-tab-pane>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </el-tabs>
         </div>
       </div>
@@ -46,12 +52,21 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import ViewLayout from '_c/common/Layout'
 import SystemList from '_c/common/SystemList'
 import SystemOrder from './systemOrder'
 import TechnicalSupport from './technicalSupport'
 import DemandManagement from './demandManagement'
 import { mapGetters } from 'vuex'
+=======
+import ViewLayout from '_c/common/Layout';
+import SystemList from '_c/common/SystemList';
+import SystemOrder from './systemOrder';
+import TechnicalSupport from './technicalSupport';
+import DemandManagement from './demandManagement';
+import { mapGetters } from 'vuex';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 
 export default {
   data() {
@@ -60,15 +75,24 @@ export default {
       componentsType: '1',
       checked: false,
       componentName: ''
+<<<<<<< HEAD
     }
   },
   mounted() {
     if (this.permissionBtn.length > 0) {
       this.toRoute()
+=======
+    };
+  },
+  mounted() {
+    if (this.permissionBtn.length > 0) {
+      this.toRoute();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   watch: {
     componentsType(newVal) {
+<<<<<<< HEAD
       this.componentName =
         newVal == '1'
           ? 'SystemOrder'
@@ -78,6 +102,12 @@ export default {
     },
     permissionBtn() {
       this.toRoute()
+=======
+      this.componentName = newVal == '1' ? 'SystemOrder' : newVal == '2' ? 'TechnicalSupport' : 'DemandManagement';
+    },
+    permissionBtn(newVal) {
+      this.toRoute();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   computed: {
@@ -87,6 +117,7 @@ export default {
     toRoute() {
       if (!this.hasPermissionBtn('system-question')) {
         if (!this.hasPermissionBtn('tec-support')) {
+<<<<<<< HEAD
           if (this.hasPermissionBtn('need')) {
             this.componentName = 'DemandManagement'
             this.componentsType = '3'
@@ -98,6 +129,20 @@ export default {
       } else {
         this.componentName = 'SystemOrder'
         this.componentsType = '1'
+=======
+          if (!this.hasPermissionBtn('need')) {
+          } else {
+            this.componentName = 'DemandManagement';
+            this.componentsType = '3';
+          }
+        } else {
+          this.componentName = 'TechnicalSupport';
+          this.componentsType = '2';
+        }
+      } else {
+        this.componentName = 'SystemOrder';
+        this.componentsType = '1';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
@@ -108,7 +153,11 @@ export default {
     TechnicalSupport,
     DemandManagement
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -146,4 +195,8 @@ export default {
     padding-bottom: 53px;
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

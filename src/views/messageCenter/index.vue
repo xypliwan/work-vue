@@ -10,6 +10,14 @@
               <el-tab-pane label="已读消息" name="1"></el-tab-pane>
             </el-tabs>
           </div>
+<<<<<<< HEAD
+=======
+          <!-- <div class="right">
+            <i class="iconfont icon-weixin"></i>
+            <span>关注微信通知</span>
+            <el-switch v-model="value" active-color="#13ce66" inactive-color="#ccc"></el-switch>
+          </div> -->
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         </div>
       </div>
       <div slot="content">
@@ -20,24 +28,44 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import ViewLayout from '_c/common/Layout'
 import TableBox from './TableBox'
+=======
+import ViewLayout from '_c/common/Layout';
+import TableBox from './TableBox';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   data() {
     return {
       is_read: '0',
       value: false
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   components: {
     ViewLayout,
     TableBox
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
 .message-center-box {
+<<<<<<< HEAD
+=======
+  // height: 100%;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   /deep/ .el-tabs__item {
     height: 60px;
     line-height: 60px;
@@ -68,4 +96,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

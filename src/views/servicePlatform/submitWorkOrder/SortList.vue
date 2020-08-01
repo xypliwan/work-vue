@@ -1,6 +1,7 @@
 <template>
   <div>
     <ul class="type-box">
+<<<<<<< HEAD
       <li
         v-for="(item, i) in list"
         class="item"
@@ -13,6 +14,11 @@
           class="iconfont icon-arrfill_d-copy-copy"
           v-show="id == item.category_id"
         ></i>
+=======
+      <li v-for="(item,i) in list" class="item" :key="i" @click="handleItem(item.category_id)" :class="id == item.category_id ? 'active' : ''">
+        {{item.name}}
+        <i class="iconfont icon-arrfill_d-copy-copy" v-show="id == item.category_id"></i>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       </li>
     </ul>
     <div class="no-data" v-if="!list.length">暂无数据</div>
@@ -23,26 +29,42 @@
 export default {
   props: {
     list: [Array],
+<<<<<<< HEAD
     id: {
       type: String,
       default: ''
     }
+=======
+    id: ''
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   data() {
     return {
       // id: ''
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   methods: {
     handleItem(id) {
       // this.id = id;
+<<<<<<< HEAD
       this.$emit('selectId', id)
+=======
+      this.$emit('selectId', id);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     },
     resetId() {
       // this.id = '';
     }
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -73,4 +95,8 @@ export default {
   color: #999;
   text-align: center;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

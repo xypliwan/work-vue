@@ -11,6 +11,7 @@
       :before-close="handleClose"
     >
       <div slot="title">
+<<<<<<< HEAD
         {{ flg == '0' ? '新增知识' : '编辑知识' }}
         <i
           class="iconfont"
@@ -37,10 +38,20 @@
               :hide-loading="autoSearchLoading"
               value-key="title"
             ></el-autocomplete>
+=======
+        {{flg == '0' ? '新增知识' : '编辑知识'}}
+        <i class="iconfont" @click="isFullscreen = !isFullscreen" :class="isFullscreen ? 'icon-zuixiaohua' : 'icon-icon_enlarge'"></i>
+      </div>
+      <div>
+        <el-form :model="ruleForm" size="small" clearable :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm" v-loading="formLoding">
+          <el-form-item label="标题" prop="title">
+            <el-input v-model="ruleForm.title"></el-input>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </el-form-item>
           <el-row>
             <el-col :span="11">
               <el-form-item label="一级板块" prop="first_km_id">
+<<<<<<< HEAD
                 <el-select
                   :disabled="flg == '1'"
                   v-model="ruleForm.first_km_id"
@@ -55,11 +66,16 @@
                     :label="item.title"
                     :value="item.km_id"
                   ></el-option>
+=======
+                <el-select :disabled="flg == '1'" v-model="ruleForm.first_km_id" @change="getSecondKnowledgeModel" clearable filterable placeholder="请选择">
+                  <el-option v-for="(item,i) in onePlateAll" :key="i" :label="item.title" :value="item.km_id"></el-option>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="11" :offset="2">
               <el-form-item label="二级板块" prop="second_km_id">
+<<<<<<< HEAD
                 <el-select
                   :disabled="flg == '1'"
                   v-model="ruleForm.second_km_id"
@@ -74,11 +90,16 @@
                     :label="item.title"
                     :value="item.km_id"
                   ></el-option>
+=======
+                <el-select :disabled="flg == '1'" v-model="ruleForm.second_km_id" clearable filterable placeholder="请选择">
+                  <el-option v-for="(item,i) in secondPlate" :key="i" v-if="item.km_id !== ''" :label="item.title" :value="item.km_id"></el-option>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="允许客户查看" prop="is_customer_check">
+<<<<<<< HEAD
                 <el-switch
                   v-model="ruleForm.is_customer_check"
                   active-value="1"
@@ -89,10 +110,15 @@
                 &nbsp;&nbsp;{{
                   ruleForm.is_customer_check == '0' ? '否' : '是'
                 }}
+=======
+                <el-switch v-model="ruleForm.is_customer_check" active-value="1" inactive-value="0" active-color="#409EFF" inactive-color="#ccc"></el-switch>
+                &nbsp;&nbsp;{{ruleForm.is_customer_check == '0' ? '否' : '是'}}
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
               </el-form-item>
             </el-col>
             <el-col :span="11" :offset="2">
               <el-form-item label="排序" prop="sort">
+<<<<<<< HEAD
                 <el-input
                   v-model="ruleForm.sort"
                   clearable
@@ -186,6 +212,14 @@
             >
               <img width="100%" :src="dialogImageUrl" alt />
             </el-dialog>
+=======
+                <el-input v-model="ruleForm.sort" clearable type="number"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-form-item label="内容" prop="content">
+            <light-editor :content="ruleForm.content" ref="editor" uploadUrl="/common/upload"></light-editor>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </el-form-item>
         </el-form>
       </div>
@@ -198,6 +232,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import LightEditor from '_c/editor/LightEditor'
 import { getSecondKnowledgeModel } from '@/api/common'
 import {
@@ -212,6 +247,11 @@ import {
 import { mapGetters } from 'vuex'
 import baseURL from '@/config/baseUrl'
 import { getLocalStorage } from '@/utils/localStorage'
+=======
+import LightEditor from '_c/editor/LightEditor';
+import { getSecondKnowledgeModel } from '@/api/common';
+import { addKnowledge, getKnowledgeDetail, updateKnowledgeDetail } from '@/api/ycUniversity';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     dialogKnowledge: {
@@ -226,7 +266,10 @@ export default {
   },
   data() {
     return {
+<<<<<<< HEAD
       fileList: [],
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       ruleForm: {
         knowledge_id: this.id,
         title: '', //标题
@@ -234,6 +277,7 @@ export default {
         first_km_id: this.pid, //一级模块id
         second_km_id: this.secondId, //二级模块id
         sort: '', //排序
+<<<<<<< HEAD
         is_customer_check: '1', //是否用户查看 1是  0否
         guide: '', //引导说明
         k_tag_id_arr: [], //标签数组
@@ -290,10 +334,36 @@ export default {
           case '1': //编辑
             this.getKnowledgeDetail()
             break
+=======
+        is_customer_check: '1' //是否用户查看 1是  0否
+      },
+      rules: {
+        title: [{ required: true, message: '请输入', trigger: 'blur' }],
+        first_km_id: [{ required: true, message: '请选择', trigger: 'change' }],
+        second_km_id: [{ required: true, message: '请选择', trigger: 'change' }],
+        sort: [{ required: true, message: '请输入', trigger: 'blur' }],
+        content: [{ required: true, message: '请输入', trigger: 'blur' }]
+      },
+      secondPlate: [], //二级板块
+      formLoding: false,
+      isFullscreen: false
+    };
+  },
+  watch: {
+    dialogKnowledge(newVal) {
+      if (newVal) {
+        switch (this.flg) {
+          case '0': //新增
+            break;
+          case '1': //编辑
+            this.getKnowledgeDetail();
+            break;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         }
       }
     },
     pid(newVal) {
+<<<<<<< HEAD
       this.ruleForm.first_km_id = newVal
       if (this.ruleForm.first_km_id !== '') {
         this.getSecondKnowledgeModel()
@@ -497,10 +567,67 @@ export default {
     submit() {
       this.ruleForm.content = this.$refs.editor.getHtml()
       this.ruleForm.guide = this.$refs.editorGuide.getHtml()
+=======
+      this.ruleForm.first_km_id = newVal;
+      if (this.ruleForm.first_km_id !== '') {
+        this.getSecondKnowledgeModel();
+      }
+    },
+    secondId(newVal) {
+      this.ruleForm.second_km_id = newVal;
+    }
+  },
+  methods: {
+    async updateKnowledgeDetail() {
+      this.formLoding = true;
+      try {
+        let { message } = await updateKnowledgeDetail(this.ruleForm);
+        this._message(message, 'success');
+        this.$emit('saveOk');
+        this.handleClose();
+      } catch (error) {
+        this._message(error);
+      }
+      this.formLoding = false;
+    },
+    async getKnowledgeDetail() {
+      this.formLoding = true;
+      try {
+        let { data } = await getKnowledgeDetail({ knowledge_id: this.id });
+        Object.assign(this.ruleForm, data);
+      } catch (error) {
+        this._message(error);
+      }
+      this.formLoding = false;
+    },
+    async addKnowledge() {
+      this.formLoding = true;
+      try {
+        let { message } = await addKnowledge(this.ruleForm);
+        this._message(message, 'success');
+        this.$emit('saveOk');
+        this.handleClose();
+      } catch (error) {
+        this._message(error);
+      }
+      this.formLoding = false;
+    },
+    async getSecondKnowledgeModel() {
+      try {
+        let { data } = await getSecondKnowledgeModel({ pid: this.ruleForm.first_km_id });
+        this.secondPlate = data;
+      } catch (error) {
+        this._message(error);
+      }
+    },
+    submit() {
+      this.ruleForm.content = this.$refs.editor.getHtml();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           switch (this.flg) {
             case '0':
+<<<<<<< HEAD
               this.addKnowledge()
               break
 
@@ -527,11 +654,30 @@ export default {
         el.types = 'info'
       })
       this.$emit('close')
+=======
+              this.addKnowledge();
+              break;
+
+            case '1':
+              this.updateKnowledgeDetail();
+              break;
+          }
+        } else {
+          return false;
+        }
+      });
+    },
+    handleClose() {
+      this.$refs.editor.clearHtml();
+      this.$refs.ruleForm.resetFields();
+      this.$emit('close');
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
     LightEditor
   }
+<<<<<<< HEAD
 }
 </script>
 
@@ -566,4 +712,10 @@ export default {
 .el-autocomplete {
   display: block;
 }
+=======
+};
+</script>
+
+<style lang="scss" scoped>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </style>

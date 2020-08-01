@@ -14,6 +14,7 @@
     </div>
 
     <div class="chat-info">
+<<<<<<< HEAD
       <editor
         ref="editors"
         @sendInfo="sendInfo"
@@ -51,6 +52,29 @@
 import Editor from './Editor'
 import Expression from './expression'
 import Upload from '_c/common/Upload'
+=======
+      <editor ref="editors" @sendInfo="sendInfo" @changeVal="changeVal"></editor>
+      <div class="opren-box">
+        <div class="file-box">
+          <div class="item" v-for="(item,i) in fileBox">
+            <span>{{item.file_name}}</span>
+            <i class="iconfont icon-guanbi" @click="delFile(i)"></i>
+          </div>
+        </div>
+        <el-button :disabled="disabledBtn" class="send-btn" size="mini" type="primary" @click="sendInfo">发送 (ctrl+enter)</el-button>
+      </div>
+    </div>
+    <div class="upload-box">
+      <upload ref="uploads" :list="[]" :limit="50" @successOk="successOk"></upload>
+    </div>
+  </div>
+</template> 
+
+<script>
+import Editor from './Editor';
+import Expression from './expression';
+import Upload from '_c/common/Upload';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   data() {
     return {
@@ -58,16 +82,26 @@ export default {
         // { file_name: 'a.xsl', url: 'www.baidu.con' },
       ],
       disabledBtn: true
+<<<<<<< HEAD
     }
   },
   watch: {
     fileBox(newVal) {
       let cont = this.$refs.editors.getHtml()
       this.disabledBtn = newVal.length <= 0 && cont.length <= 0 ? true : false
+=======
+    };
+  },
+  watch: {
+    fileBox(newVal) {
+      let cont = this.$refs.editors.getHtml();
+      this.disabledBtn = newVal.length <= 0 && cont.length <= 0 ? true : false;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
     setEditorHeight(height) {
+<<<<<<< HEAD
       let editorDoms = document.getElementsByClassName('ql-editor')[0]
       editorDoms.style.height = height + 'px'
     },
@@ -121,6 +155,60 @@ export default {
     },
     setFoucsEdit() {
       this.$refs.editors.setFoucsEdit()
+=======
+      let editorDoms = document.getElementsByClassName('ql-editor')[0];
+      editorDoms.style.height = height + 'px';
+    },
+    changeVal(val) {
+      this.disabledBtn = val.length <= 0 && this.fileBox.length <= 0 ? true : false;
+    },
+    delFile(i) {
+      this.fileBox.splice(i, 1);
+    },
+    uoloadFile() {
+      document.querySelector('.upload-box .lod').click();
+    },
+    successOk(data) {
+      let imgType = ['jpg', 'bmp', 'gif', 'png', 'jpeg'];
+      let snapArr = data.file_name.split('.');
+      let isImg = snapArr[snapArr.length - 1];
+      if (imgType.includes(isImg)) {
+        //是图片类型
+        this.$refs.editors.concatVal(data.url);
+      } else {
+        //文件类型
+        this.fileBox.push(data);
+      }
+    },
+    sendInfo() {
+      let cont = this.$refs.editors.getHtml();
+      if (cont.length <= 0 && this.fileBox.length <= 0) {
+        return;
+      }
+      let str = '';
+      this.fileBox.forEach(el => {
+        // target='_blank'
+        str += `<div class='file-special'><i class='iconfont icon-wenjian'></i><a href='${el.url}' download='${el.file_name}' target='_blank'>${el.file_name}</a></div>`;
+      });
+      this.$emit('sendInfo', cont + str);
+    },
+    selectExpression(item) {
+      let cont = `http://img.ecgtool.com/ecs/ec/gif/2019/08/27//default/${item}.gif`;
+      this.$refs.editors.concatVal(cont);
+    },
+    showHtml(val) {
+      this.$refs.editors.showHtml(val);
+    },
+    getHtml() {
+      return this.$refs.editors.getHtml();
+    },
+    clearHtml() {
+      this.fileBox = [];
+      this.$refs.editors.clearHtml();
+    },
+    setFoucsEdit() {
+      this.$refs.editors.setFoucsEdit();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
@@ -128,7 +216,11 @@ export default {
     Expression,
     Upload
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -170,7 +262,10 @@ export default {
       display: flex;
       margin-top: 10px;
       margin-bottom: 10px;
+<<<<<<< HEAD
       border-top: 1px solid #f1f1f1;
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       .file-box {
         flex: 1;
         width: 200px;

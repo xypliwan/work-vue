@@ -17,10 +17,17 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import HotHelp from './HotHelp'
 import BrowseRecord from './BrowseRecord'
 import SearchList from './SearchList'
 import { mapGetters, mapActions } from 'vuex'
+=======
+import HotHelp from './HotHelp';
+import BrowseRecord from './BrowseRecord';
+import SearchList from './SearchList';
+import { mapGetters, mapActions } from 'vuex';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   computed: {
     ...mapGetters(['isSearch'])
@@ -34,7 +41,11 @@ export default {
     BrowseRecord,
     SearchList
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 <style lang="scss" scoped>
 .history-brows-wrapper {

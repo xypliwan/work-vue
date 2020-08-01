@@ -6,13 +6,17 @@
     <div class="marster-right">
       <router-view></router-view>
     </div>
+<<<<<<< HEAD
     <audio id="audio" preload="auto" loop style="height: 0">
       <source src="../../assets/images/info_sound.mp4" type="audio/mp4" />
     </audio>
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import UserBar from '_c/userBar'
 
 import { getAccessToken } from '@/api/user'
@@ -407,6 +411,15 @@ export default {
     UserBar
   }
 }
+=======
+import UserBar from '_c/userBar';
+
+export default {
+  components: {
+    UserBar
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -438,6 +451,7 @@ export default {
   }
 }
 </style>
+<<<<<<< HEAD
 <style lang="scss">
 .special-box {
   .el-tabs__header {
@@ -467,3 +481,5 @@ export default {
   background: #d9e3f3 !important;
 }
 </style>
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

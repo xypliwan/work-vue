@@ -6,8 +6,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "vue-cli-service build --mode test",
+<<<<<<< HEAD
     "intr": "vue-cli-service build --mode intr",
     "lint-fix": "eslint --fix --ext .js,.vue src"
+=======
+    "intr": "vue-cli-service build --mode intr"
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -21,11 +25,15 @@
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.3",
     "vue-splitpane": "^1.0.4",
+<<<<<<< HEAD
     "vue-video-player": "^5.0.2",
+=======
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     "vuex": "^3.0.1",
     "web-storage-cache": "^1.1.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
@@ -37,6 +45,11 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.12.0",
     "push.js": "^1.0.12",
+=======
+    "@vue/cli-plugin-babel": "^3.9.0",
+    "@vue/cli-service": "^3.9.0",
+    "node-sass": "^4.12.0",
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     "sass-loader": "^7.1.0",
     "vue-loader": "^15.7.1",
     "vue-template-compiler": "^2.6.10"

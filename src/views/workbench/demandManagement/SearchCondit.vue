@@ -1,5 +1,6 @@
 <template>
   <div class="search-condit">
+<<<<<<< HEAD
     <el-form
       size="small"
       :model="ruleForm"
@@ -16,28 +17,44 @@
               clearable
               @keyup.enter.native="submitForm"
             ></el-input>
+=======
+    <el-form size="small" :model="ruleForm" label-position="top" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-row>
+        <el-col :span="11">
+          <el-form-item label="需求ID" prop="list_id">
+            <el-input v-model="ruleForm.list_id" clearable></el-input>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </el-form-item>
         </el-col>
         <el-col :span="11" :offset="2">
           <el-form-item label="需求标题" prop="title">
+<<<<<<< HEAD
             <el-input
               v-model="ruleForm.title"
               clearable
               @keyup.enter.native="submitForm"
             ></el-input>
+=======
+            <el-input v-model="ruleForm.title" clearable></el-input>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </el-form-item>
         </el-col>
         <el-col :span="11">
           <el-form-item label="TAPD需求ID" prop="tapd_id">
+<<<<<<< HEAD
             <el-input
               v-model="ruleForm.tapd_id"
               clearable
               @keyup.enter.native="submitForm"
             ></el-input>
+=======
+            <el-input v-model="ruleForm.tapd_id" clearable></el-input>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </el-form-item>
         </el-col>
         <el-col :span="11" :offset="2">
           <el-form-item label="需求状态" prop="need_status">
+<<<<<<< HEAD
             <el-select
               v-model="ruleForm.need_status"
               placeholder="请选择"
@@ -50,10 +67,32 @@
                 :label="item.status_name"
                 :value="item.status_code"
               ></el-option>
+=======
+            <el-select v-model="ruleForm.need_status" placeholder="请选择" filterable clearable>
+              <el-option v-for="(item,i) in filterData.statusList" :key="i" :label="item.status_name" :value="item.status_code"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11">
+          <el-form-item label="所属公司" prop="extend_deal_company_id" v-show="filterData.company == 1">
+            <el-select
+              v-model="ruleForm.extend_deal_company_id"
+              @change="changeCompany"
+              filterable
+              clearable
+              remote
+              reserve-keyword
+              placeholder="请输入公司名称搜索"
+              :remote-method="remoteCompany"
+              :loading="cLoading"
+            >
+              <el-option v-for="item in companyList" :key="item.company_id" :label="item.company_name" :value="item.company_id"></el-option>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-select>
           </el-form-item>
         </el-col>
 
+<<<<<<< HEAD
         <el-col :span="11">
           <el-form-item label="紧急需求，是否愿意付费" prop="is_pay">
             <el-select
@@ -62,6 +101,18 @@
               filterable
               clearable
             >
+=======
+        <el-col :span="11" :offset="2">
+          <el-form-item label="所属人" prop="extend_deal_user_id" v-show="filterData.company == 1">
+            <el-select v-model="ruleForm.extend_deal_user_id" :disabled="!ruleForm.extend_deal_company_id" placeholder="请先选择所属公司" filterable clearable>
+              <el-option v-for="(item,i) in companyUserList" :key="i" :label="item.username" :value="item.user_id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11">
+          <el-form-item label="紧急需求，是否愿意付费" prop="is_pay">
+            <el-select v-model="ruleForm.is_pay" placeholder="请选择" filterable clearable>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
               <el-option label="全部" value></el-option>
               <el-option label="付费" value="1"></el-option>
               <el-option label="不付费" value="0"></el-option>
@@ -70,18 +121,23 @@
         </el-col>
         <el-col :span="11" :offset="2">
           <el-form-item label="是否为BUG" prop="is_bug">
+<<<<<<< HEAD
             <el-select
               v-model="ruleForm.is_bug"
               placeholder="请选择"
               filterable
               clearable
             >
+=======
+            <el-select v-model="ruleForm.is_bug" placeholder="请选择" filterable clearable>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
               <el-option label="全部" value></el-option>
               <el-option label="是" value="1"></el-option>
               <el-option label="不是" value="0"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+<<<<<<< HEAD
 
         <!-- <el-col :span="11" :offset="2"> -->
         <el-col :span="11">
@@ -98,10 +154,17 @@
                 :label="item.model_name"
                 :value="item.model_id"
               ></el-option>
+=======
+        <el-col :span="11">
+          <el-form-item label="责任人" prop="deal_user_id" v-show="filterData.dealUser.length > 0">
+            <el-select v-model="ruleForm.deal_user_id" placeholder="请选择" filterable clearable>
+              <el-option v-for="(item,i) in filterData.dealUser" :key="i" :label="item.username" :value="item.user_id"></el-option>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="11" :offset="2">
+<<<<<<< HEAD
           <el-form-item label="影响范围" prop="range_id">
             <el-select
               v-model="ruleForm.range_id"
@@ -115,10 +178,16 @@
                 :label="item.name"
                 :value="item.range_id"
               ></el-option>
+=======
+          <el-form-item label="需求模块" prop="model_id">
+            <el-select v-model="ruleForm.model_id" placeholder="请选择" filterable clearable>
+              <el-option v-for="(item,i) in filterData.model" :key="i" :label="item.model_name" :value="item.model_id"></el-option>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="11">
+<<<<<<< HEAD
           <el-form-item label="时间类型" prop="time_type">
             <el-select
               v-model="ruleForm.time_type"
@@ -132,10 +201,16 @@
                 :label="item.title"
                 :value="item.index"
               ></el-option>
+=======
+          <el-form-item label="影响范围" prop="range_id">
+            <el-select v-model="ruleForm.range_id" placeholder="请选择" filterable clearable>
+              <el-option v-for="(item,i) in filterData.range" :key="i" :label="item.name" :value="item.range_id"></el-option>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="11" :offset="2">
+<<<<<<< HEAD
           <el-form-item label="时间段" prop="selectTime">
             <el-date-picker
               value-format="yyyy-MM-dd HH:mm:ss"
@@ -233,6 +308,20 @@
       </el-row>
       <el-row>
         <el-col :span="11">
+=======
+          <el-form-item label="时间类型" prop="time_type">
+            <el-select v-model="ruleForm.time_type" placeholder="请选择" filterable clearable>
+              <el-option v-for="(item,i) in timeType" :key="i" :label="item.title" :value="item.index"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11">
+          <el-form-item label="时间段" prop="selectTime">
+            <el-date-picker value-format="yyyy-MM-dd HH:mm:ss" v-model="selectTime" @change="timeChange" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11" :offset="2">
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           <el-form-item label="操作" prop="selectTime">
             <el-button type="primary" @click="submitForm">查询</el-button>
             <el-button @click="resetForm()">重置</el-button>
@@ -244,7 +333,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { getCompanyBySearch } from '@/api/common'
+=======
+import { getCompanyBySearch } from '@/api/common';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     filterData: Object,
@@ -266,6 +359,7 @@ export default {
         tapd_id: '', //tapd ID
         need_status: '', //需求状态
         extend_deal_company_id: '', //公司id
+<<<<<<< HEAD
         extend_deal_user_id: '', //所属人ID
         desc: ''
       },
@@ -277,18 +371,38 @@ export default {
       companyList: [],
       cLoading: false
     }
+=======
+        extend_deal_user_id: '' //所属人ID
+      },
+      timeType: [
+        { title: '工单发起时间', index: 'create' },
+        { title: '工单最后更新时间', index: 'last_update' },
+        { title: '工单采纳时间', index: 'adopt' }
+      ],
+      selectTime: [],
+      timeType: [{ title: '需求发起时间', index: 'created_at' }, { title: '最后更新时间', index: 'updated_at' }],
+      companyList: [],
+      cLoading: false
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
 
   watch: {
     filterData: {
+<<<<<<< HEAD
       handler() {
         this.resetForm()
+=======
+      handler(newVal) {
+        this.resetForm();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       },
       deep: true
     }
   },
   methods: {
     async remoteCompany(query) {
+<<<<<<< HEAD
       if (!query) return
       this.cLoading = true
       try {
@@ -324,6 +438,42 @@ export default {
     }
   }
 }
+=======
+      if (!query) return;
+      this.cLoading = true;
+      try {
+        let { data } = await getCompanyBySearch({ keyword: query });
+        this.companyList = data;
+      } catch (error) {
+        this._message(error);
+      }
+      this.cLoading = false;
+    },
+    changeCompany() {
+      this.ruleForm.extend_deal_user_id = '';
+      if (this.ruleForm.extend_deal_company_id) {
+        this.$emit('selectCompany', this.ruleForm.extend_deal_company_id);
+      }
+    },
+    submitForm() {
+      this.$emit('search', this.ruleForm);
+    },
+    resetForm() {
+      this.selectTime = [];
+      this.$refs.ruleForm.resetFields();
+    },
+    timeChange(e) {
+      if (e == null) {
+        this.ruleForm.start_at = '';
+        this.ruleForm.end_at = '';
+      } else {
+        this.ruleForm.start_at = this.selectTime[0];
+        this.ruleForm.end_at = this.selectTime[1];
+      }
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -343,4 +493,8 @@ export default {
     margin-bottom: 10px;
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

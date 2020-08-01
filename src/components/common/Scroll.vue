@@ -1,16 +1,24 @@
 <template>
+<<<<<<< HEAD
   <div class="wrapper-scroll" @scroll="onScroll" ref="wrapper">
+=======
+  <div class="wrapper" @scroll="onScroll" ref="wrapper">
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     <div class="inner-wrapper" ref="innerWrapper">
       <slot name="dataList" v-if="direction"></slot>
       <div class="loading-box" :class="isLoadings ? 'loading-box-active' : ''">
         <img src="@/assets/images/loading.gif" alt />
       </div>
+<<<<<<< HEAD
       <div
         class="text-desc"
         :class="!isLoadings && hasMore ? 'no-data-active' : ''"
       >
         暂无更多数据
       </div>
+=======
+      <div class="text-desc" :class="(!isLoadings && hasMore) ? 'no-data-active' : ''">暂无更多数据</div>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       <slot name="downDataList" v-if="!direction" ref="downRref"></slot>
     </div>
   </div>
@@ -31,7 +39,11 @@ export default {
   data() {
     return {
       innerLoading: false
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
 
   watch: {
@@ -39,10 +51,17 @@ export default {
       if (newVal) {
         if (!this.hasMore) {
           if (this.direction) {
+<<<<<<< HEAD
             this.$emit('loadingData')
           } else {
             let innerHeightDown = this.$refs.innerWrapper.lastChild.clientHeight //可滚动的div高度
             this.$emit('loadingData', innerHeightDown)
+=======
+            this.$emit('loadingData');
+          } else {
+            let innerHeightDown = this.$refs.innerWrapper.lastChild.clientHeight; //可滚动的div高度
+            this.$emit('loadingData', innerHeightDown);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           }
         }
       }
@@ -50,12 +69,17 @@ export default {
   },
   methods: {
     toScrollTop() {
+<<<<<<< HEAD
       this.$refs.wrapper.scrollTop = 0
+=======
+      this.$refs.wrapper.scrollTop = 0;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     },
     //oldHeight上一次的高度
     resetHeight(oldHeight) {
       //每次重新加载，重新设置滚动条的位置
       //滚动条位置 = 新加入后的数据生成的总div高度 - 加入前的高度
+<<<<<<< HEAD
       let innerHeightDown = this.$refs.innerWrapper.lastChild.clientHeight //可滚动的div高度
       let newHeight = innerHeightDown - oldHeight //新加入的div的高度
       this.$refs.wrapper.scrollTop = newHeight
@@ -75,6 +99,27 @@ export default {
         if (this.$refs['wrapper']) {
           let domScrollTopDown = this.$refs.wrapper.scrollTop //滚动条距离上面的距离
           this.innerLoading = domScrollTopDown <= 30
+=======
+      let innerHeightDown = this.$refs.innerWrapper.lastChild.clientHeight; //可滚动的div高度
+      let newHeight = innerHeightDown - oldHeight; //新加入的div的高度
+      this.$refs.wrapper.scrollTop = newHeight;
+    },
+    onScroll(e) {
+      if (this.direction) {
+        //往下滚
+        //固定高度的dom
+        let outerHeight = this.$refs.wrapper.clientHeight;
+        //装内容的dom
+        let innerHeight = this.$refs.innerWrapper.firstChild.clientHeight;
+        //可滚动容器超出当前窗口显示范围的高度
+        let domScrollTop = this.$refs.wrapper.scrollTop;
+        this.innerLoading = outerHeight + domScrollTop >= innerHeight - 30;
+      } else {
+        //往上滚
+        if (this.$refs['wrapper']) {
+          let domScrollTopDown = this.$refs.wrapper.scrollTop; //滚动条距离上面的距离
+          this.innerLoading = domScrollTopDown <= 30;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         }
       }
     },
@@ -82,7 +127,11 @@ export default {
       //初始化时的距离顶部的高度
       // this.$nextTick(() => {
 
+<<<<<<< HEAD
       this.$refs.wrapper.scrollTop = this.$refs.wrapper.scrollHeight
+=======
+      this.$refs.wrapper.scrollTop = this.$refs.wrapper.scrollHeight;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 
       // this.$refs.wrapper.scrollTop = this.$refs.innerWrapper.clientHeight;
 
@@ -91,12 +140,20 @@ export default {
       // });
     }
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/global.scss';
+<<<<<<< HEAD
 .wrapper-scroll {
+=======
+.wrapper {
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -129,4 +186,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

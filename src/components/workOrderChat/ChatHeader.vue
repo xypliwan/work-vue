@@ -4,6 +4,7 @@
       <div class="left">
         <div class="user-avatar">
           <el-avatar fit="cover" :src="detail.show_headimg"></el-avatar>
+<<<<<<< HEAD
           <i
             class="iconfont counterpart-icon"
             :class="
@@ -35,17 +36,33 @@
                   :key="i"
                 >
                   <a :href="item.path" target="_blank">{{ item.name }}</a>
+=======
+          <i class="iconfont counterpart-icon" :class="getMappingVal(statusList,'status_code',detail.show_headimg_online_status,'icon')"></i>
+        </div>
+        <div class="outher-info">
+          <div class="top-title">
+            <span class="question-id copy-class" @click="copyAddress('复制成功',detail.question_num)">{{detail.question_num}}</span>
+            <el-tooltip placement="bottom" effect="light" v-show="detail.file.length">
+              <div slot="content">
+                <div style="margin-bottom:10px;font-size:14px;" v-for="(item,i) in detail.file">
+                  <a :href="item.path" target="_blank">{{item.name}}</a>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
                 </div>
               </div>
               <i class="iconfont icon-icon-fujian"></i>
             </el-tooltip>
+<<<<<<< HEAD
             <span>{{ detail.title }}</span>
+=======
+            <span>{{detail.title}}</span>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             <el-link type="primary" @click="dialogDetail = true">
               详情
               <i class="el-icon-caret-bottom"></i>
             </el-link>
           </div>
           <div class="botton-desc">
+<<<<<<< HEAD
             <el-tag
               type="warning"
               size="mini"
@@ -90,6 +107,14 @@
               >{{ detail.resolve_question_user_name }}
               {{ chatService == '0' ? '' : detail.responsibility_rank }}</el-tag
             >
+=======
+            <el-tag type="warning" size="mini" :disable-transitions="true" v-if="chatService == '1'">{{detail.range_level}}</el-tag>
+            <span>[{{detail.company_name}}]{{detail.username}}</span>
+            <span>提出：{{detail.created_at}}</span>
+            <el-tag :disable-transitions="true" effect="dark" size="mini">{{detail.question_type == '1' ? '异常' : '咨询'}}</el-tag>
+            <el-tag :disable-transitions="true" effect="dark" size="mini" type="danger" v-show="rangeList.length">{{ getMappingVal(rangeList,'range_id',detail.range_id,'name') }}</el-tag>
+            <el-tag :disable-transitions="true" effect="dark" size="mini" @click="seeAdoption">{{detail.question_status == '0' ? '未处理' : (detail.question_status == '1' ? '处理中' : '已采纳' )}}</el-tag>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             <!-- //转交他人原因 -->
             <el-tag
               v-if="detail.change_question_username.length"
@@ -98,6 +123,7 @@
               effect="dark"
               size="mini"
               @click="reasonTransferDialog = true"
+<<<<<<< HEAD
               >{{ `${detail.change_question_username}转交` }}</el-tag
             >
             <el-tag type="info" size="mini">{{
@@ -106,10 +132,15 @@
             <el-tag type="warning" size="mini" v-if="chatService == '1'">{{
               detail.difficulty_level
             }}</el-tag>
+=======
+            >{{`${detail.change_question_username}转交`}}</el-tag>
+            <el-tag type="info" size="mini">{{detail.first_category_name}}</el-tag>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </div>
         </div>
       </div>
       <div class="right">
+<<<<<<< HEAD
         <el-tooltip
           content="回复模板"
           placement="bottom"
@@ -161,6 +192,22 @@
             v-if="chatService == '1'"
             v-show="detail.support_id == '0'"
           ></i>
+=======
+        <el-tooltip content="回复模板" placement="bottom" v-if="chatService == '1'">
+          <i class="iconfont icon-icon_talk_bujinyan" v-if="chatService == '1'" @click="showComp('QuickReply')"></i>
+        </el-tooltip>
+        <el-tooltip content="采纳工单" placement="bottom" v-if="chatService == '0' && detail.question_status !== '2'">
+          <i class="iconfont icon-duigou" v-if="chatService == '0' && detail.question_status !== '2'" @click="adoptWorkOrderVisible = true"></i>
+        </el-tooltip>
+        <el-tooltip content="易仓大学" placement="bottom">
+          <i class="iconfont icon-icon_yinhang" @click="showComp('YcUniversity')"></i>
+        </el-tooltip>
+        <el-tooltip content="转交他人" placement="bottom" v-if="chatService == '1'">
+          <i class="iconfont icon-zhuanfa" @click="dialogTransferOthers = true" v-if="chatService == '1'"></i>
+        </el-tooltip>
+        <el-tooltip content="技术支持" placement="bottom" v-if="chatService == '1'" v-show="detail.support_id == '0'">
+          <i class="iconfont icon-weibiaoti-" @click="supportVisible = true" v-if="chatService == '1'" v-show="detail.support_id == '0'"></i>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         </el-tooltip>
         <el-tooltip content="更多" placement="bottom">
           <el-dropdown trigger="click" @command="handeleMore">
@@ -171,6 +218,7 @@
               <el-dropdown-item command="0" v-if="Number(detail.list_id) == 0">
                 <i class="iconfont icon-ziyuan1"></i> 转需求
               </el-dropdown-item>
+<<<<<<< HEAD
               <el-dropdown-item
                 command="1"
                 v-if="Number(detail.list_id) == 0 && chatService == '1'"
@@ -180,11 +228,18 @@
               <el-dropdown-item command="2" v-if="Number(detail.list_id) !== 0"
                 >跳转 关联需求ID {{ detail.list_id }}</el-dropdown-item
               >
+=======
+              <el-dropdown-item command="1" v-if="Number(detail.list_id) == 0">
+                <i class="iconfont icon-ico-bug"></i> 转BUG
+              </el-dropdown-item>
+              <el-dropdown-item command="2" v-if="Number(detail.list_id) !== 0">关联需求ID {{detail.list_id}}</el-dropdown-item>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-dropdown-menu>
           </el-dropdown>
         </el-tooltip>
       </div>
     </div>
+<<<<<<< HEAD
     <detail
       :dialogDetail.sync="dialogDetail"
       :detail="detail"
@@ -219,12 +274,23 @@
       :reasonTransferDialog.sync="reasonTransferDialog"
       :reasonTransferText="detail.change_question_log"
     ></reason-transfer>
+=======
+    <detail :dialogDetail.sync="dialogDetail" :detail="detail" :rangeList="rangeList" @updateOk="getChatDetail"></detail>
+
+    <transfer-others v-if="chatService == '1'" @transferOk="transferOk" :dialog.sync="dialogTransferOthers" :questionId="detail.question_id"></transfer-others>
+
+    <technical-support v-if="chatService == '1'" @submitOk="getChatDetail" :supportVisible.sync="supportVisible" :questionId="detail.question_id"></technical-support>
+    <adopt-work-order :adoptWorkOrderVisible.sync="adoptWorkOrderVisible" :questionId="detail.question_id" :status="detail.question_status" @cancelAdoptionOk="getChatDetail" @causeOk="causeOk"></adopt-work-order>
+
+    <reason-transfer :reasonTransferDialog.sync="reasonTransferDialog" :reasonTransferText="detail.change_question_log"></reason-transfer>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
 // chatService  >>> 0客户  1客服
 
+<<<<<<< HEAD
 import { getChatDetail, questionUpdateMark } from '@/api/conversation'
 import { getQuestionRange } from '@/api/common'
 import { mapGetters } from 'vuex'
@@ -237,6 +303,20 @@ import TechnicalSupport from '_c/workOrderChat/dialog/TechnicalSupport'
 import AdoptWorkOrder from '_c/workOrderChat/dialog/AdoptWorkOrder'
 //转交原因
 import ReasonTransfer from './dialog/ReasonTransfer'
+=======
+import { getChatDetail } from '@/api/conversation';
+import { getQuestionRange } from '@/api/common';
+import { mapGetters } from 'vuex';
+import Detail from './dialog/Detail';
+//转交他人
+import TransferOthers from './dialog/TransferOthers';
+//技术支持
+import TechnicalSupport from '_c/workOrderChat/dialog/TechnicalSupport';
+//采纳工单
+import AdoptWorkOrder from '_c/workOrderChat/dialog/AdoptWorkOrder';
+//转交原因
+import ReasonTransfer from './dialog/ReasonTransfer';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 
 export default {
   props: {
@@ -269,10 +349,14 @@ export default {
         show_headimg_online_status: '', //展示在会话窗口，会话对方的工作状态
         change_question_log: '', //转交的原因
         change_question_username: '', //转交人
+<<<<<<< HEAD
         list_id: '', //    需求id   > 0 为已关联需求id
         resolve_question_user_name: '', //责任人名
         responsibility_rank: '', //责任人职级
         is_response_timeout: '0' //是否响应超时 1是  仅限工单时显示
+=======
+        list_id: '' //    需求id   > 0 为已关联需求id
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       },
       rangeList: [], //影响范围列表
       detailLoading: false,
@@ -281,22 +365,34 @@ export default {
       supportVisible: false,
       adoptWorkOrderVisible: false,
       reasonTransferDialog: false
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   watch: {
     chatItemId: {
       immediate: true,
       handler: function(newVal) {
         if (newVal !== '') {
+<<<<<<< HEAD
           this.getChatDetail()
+=======
+          this.getChatDetail();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         }
       }
     },
     onlineStatusInfo(newVal) {
       //修改在线状态
       if (this.detail.show_headimg_user_id == newVal.show_headimg_user_id) {
+<<<<<<< HEAD
         this.detail.show_headimg_online_status =
           newVal.show_headimg_online_status
+=======
+        this.detail.show_headimg_online_status = newVal.show_headimg_online_status;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
@@ -304,6 +400,7 @@ export default {
     ...mapGetters(['chatService', 'statusList', 'onlineStatusInfo'])
   },
   methods: {
+<<<<<<< HEAD
     async questionUpdateMark(type) {
       //转工单，转bug标记
       try {
@@ -332,10 +429,17 @@ export default {
           .catch(() => {})
       } else if (e == '2') {
         this.$router.push(`/demand-session?demandid=${this.detail.list_id}`)
+=======
+    handeleMore(e) {
+      if (e == '0' || e == '1') {
+        let urls = `/service-platform/submit-demand?questionId=${this.detail.question_num}&supportId=${this.detail.support_id}&isBug=${e}`;
+        this.$router.push(urls);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     },
     causeOk(data) {
       // this.detail.question_status = '3';
+<<<<<<< HEAD
       this.$emit('causeOk', data)
     },
     seeAdoption() {
@@ -380,6 +484,48 @@ export default {
         this._message(error)
       }
       this.detailLoading = false
+=======
+      this.$emit('causeOk', data);
+    },
+    seeAdoption() {
+      //查看已采纳详情
+      if (this.detail.question_status !== '2') return;
+      this.adoptWorkOrderVisible = true;
+    },
+    showComp(name) {
+      this.$emit('getComponentName', name);
+    },
+    transferOk() {
+      this.$emit('transferOk');
+    },
+    async getChatDetail() {
+      this.detailLoading = true;
+      try {
+        let { data } = await getChatDetail({ question_id: this.chatItemId });
+        Object.assign(this.detail, data);
+        // this.adoptWorkOrderVisible = this.detail.auto_customer_sum == 1;
+        this.$emit('sendInfo', {
+          productId: this.detail.product_id,
+          supportId: this.detail.support_id,
+          autoCustomer: this.detail.auto_customer_sum
+        });
+        this.getQuestionRange();
+      } catch (error) {
+        this._message(error);
+      }
+      this.detailLoading = false;
+    },
+    async getQuestionRange() {
+      //获取影响范围列表
+      this.detailLoading = true;
+      try {
+        let { data } = await getQuestionRange({ product_id: this.detail.product_id });
+        this.rangeList = data;
+      } catch (error) {
+        this._message(error);
+      }
+      this.detailLoading = false;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
@@ -389,7 +535,11 @@ export default {
     AdoptWorkOrder,
     ReasonTransfer
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 <style lang="scss" scoped>
 .detail-wrapper {
@@ -465,4 +615,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

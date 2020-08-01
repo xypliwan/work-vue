@@ -1,12 +1,20 @@
 <template>
   <div>
     <img :src="setGreetings.url" class="greetings-img" />
+<<<<<<< HEAD
     <p class="greetings-desc">{{ setGreetings.desc }}</p>
+=======
+    <p class="greetings-desc">{{setGreetings.desc}}</p>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import { isMorAorN } from '_u/utils'
+=======
+import { isMorAorN } from '_u/utils';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   data() {
     return {
@@ -24,6 +32,7 @@ export default {
           url: require('@/assets/images/night.png')
         }
       ]
+<<<<<<< HEAD
     }
   },
   computed: {
@@ -32,6 +41,16 @@ export default {
     }
   }
 }
+=======
+    };
+  },
+  computed: {
+    setGreetings() {
+      return this.greetings[isMorAorN()];
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -48,4 +67,8 @@ export default {
   font-weight: 800;
   font-family: cursive;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

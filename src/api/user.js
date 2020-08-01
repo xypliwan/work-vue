@@ -2,6 +2,7 @@ import axios from '@/utils/axios'
 //用户
 
 //退出登录
+<<<<<<< HEAD
 export function loginout() {
   return axios({
     url: `/login/loginout`,
@@ -53,3 +54,20 @@ export function setRemindTag(data = {}) {
     data
   })
 }
+=======
+export function loginout(data = {}) {
+    return axios({
+        url: `/login/loginout`,
+        method: "get",
+    })
+};
+
+
+export function getAccessToken(data = {}) {
+    return axios({
+        url: `/login/get-access-token`,
+        method: "get",
+        params: data
+    })
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

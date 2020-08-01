@@ -18,3 +18,7 @@ export default new Vuex.Store({
   getters,
   actions
 })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

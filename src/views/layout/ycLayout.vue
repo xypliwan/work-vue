@@ -5,6 +5,7 @@
       <div slot="header">
         <div class="yc-header">
           <div class="tab">
+<<<<<<< HEAD
             <router-link
               tag="div"
               class="router-item"
@@ -27,6 +28,16 @@
               <el-button type="primary" slot="append" @click="search"
                 >搜索</el-button
               >
+=======
+            <router-link tag="div" class="router-item" v-for="(item,i) in tabList" :key="i" :to="item.path">
+              <span v-if="hasPermissionBtn(item.code)">{{item.title}}</span>
+            </router-link>
+          </div>
+          <div class="search-box">
+            <el-input placeholder="关键词搜索" clearable @keyup.enter.native="search" v-model="iptVal" class="input-with-select">
+              <i class="iconfont icon-xingtaiduICON_sousuo--" slot="prefix"></i>
+              <el-button type="primary" slot="append" @click="search">搜索</el-button>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </el-input>
           </div>
 
@@ -46,10 +57,18 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import ViewLayout from '_c/common/Layout'
 import SystemList from '_c/common/SystemList'
 import PerspectiveList from '_c/common/PerspectiveList'
 import { mapGetters, mapActions } from 'vuex'
+=======
+import UserBar from '_c/userBar';
+import ViewLayout from '_c/common/Layout';
+import SystemList from '_c/common/SystemList';
+import PerspectiveList from '_c/common/PerspectiveList';
+import { mapGetters, mapActions } from 'vuex';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 
 export default {
   data() {
@@ -77,6 +96,7 @@ export default {
         }
       ],
       iptVal: ''
+<<<<<<< HEAD
     }
   },
   mounted() {},
@@ -93,6 +113,24 @@ export default {
         this.getKeyword(this.iptVal)
         this.setSearchFlg(!this.searchFlg)
         this.setIsSearch(true)
+=======
+    };
+  },
+  mounted() {},
+  watch: {
+    $route(to, from) {
+      if (to.path !== '/yc-university/history-brows') {
+        this.getKeyword('');
+        this.iptVal = '';
+      }
+    },
+    currentSystemIdx(newVal) {
+      if (this.$route.query.form) {
+        this.iptVal = this.$route.query.form;
+        this.getKeyword(this.iptVal);
+        this.setSearchFlg(!this.searchFlg);
+        this.setIsSearch(true);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
@@ -104,6 +142,7 @@ export default {
     ...mapActions(['setIsSearch', 'getKeyword', 'setSearchFlg']),
     search() {
       if (this.iptVal.length <= 0) {
+<<<<<<< HEAD
         this._message('请输入搜索关键词', 'warning')
         return
       }
@@ -114,11 +153,28 @@ export default {
     }
   },
   components: {
+=======
+        this._message('请输入搜索关键词', 'warning');
+        return;
+      }
+      this.getKeyword(this.iptVal);
+      this.setSearchFlg(!this.searchFlg);
+      this.$router.push('/yc-university');
+      this.setIsSearch(true);
+    }
+  },
+  components: {
+    UserBar,
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     ViewLayout,
     SystemList,
     PerspectiveList
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>

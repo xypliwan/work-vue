@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <!-- v-dialogDrag -->
     <el-dialog
       :title="title"
@@ -77,6 +78,38 @@
                 :dataList="dataList"
                 @loadingData="loadingData"
               ></chat-box>
+=======
+    <el-dialog :title="title" top="50px" :append-to-body="true" :visible.sync="dialogDetail" width="1000px" :before-close="handleClose">
+      <div>
+        <el-form :model="ruleForm" size="small" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="标题">
+            <div>{{ruleForm.title}}</div>
+          </el-form-item>
+          <el-form-item label="类型">
+            <div>
+              <el-tag type="info" size="mini">{{ruleForm.support_type == '1' ? '异常' : '咨询'}}</el-tag>
+            </div>
+          </el-form-item>
+          <el-form-item label="附件">
+            <div v-for="(item,i) in ruleForm.file" :key="i">{{item.name}}</div>
+          </el-form-item>
+
+          <el-form-item label="问题分类">
+            <el-tag type="info" size="mini">{{ruleForm.first_category_name}}</el-tag>&nbsp;&nbsp;
+            <el-tag type="info" size="mini">{{ruleForm.second_category_name}}</el-tag>&nbsp;&nbsp;
+            <el-tag type="info" size="mini">{{ruleForm.third_category_name}}</el-tag>
+          </el-form-item>
+
+          <el-form-item label="问题描述">
+            <div v-html="ruleForm.desc" class="cont-box-wrapper" v-viewer></div>
+          </el-form-item>
+          <el-form-item label="工单ID" v-if="ruleForm.question_id !== '0'">
+            <div>{{ruleForm.question_num}}</div>
+          </el-form-item>
+          <el-form-item label="客服历史聊天" v-if="ruleForm.question_id !== '0'">
+            <div class="history-chat">
+              <chat-box ref="chatBox" :chatItemId="ruleForm.question_id" :hasMore="hasMore" :isLoadings="isLoadings" :direction="direction" :dataList="dataList" @loadingData="loadingData"></chat-box>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </div>
           </el-form-item>
         </el-form>
@@ -89,8 +122,16 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import ChatBox from '_c/common/ChatBox'
 import { getAnswer } from '@/api/conversation'
+=======
+import { getQuestionSupportCategory } from '@/api/common';
+import SortList from '@/views/servicePlatform/submitWorkOrder/SortList';
+import { delHtmlTag } from '_u/utils';
+import ChatBox from '_c/common/ChatBox';
+import { getAnswer } from '@/api/conversation';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     dialogDetail: Boolean,
@@ -115,9 +156,13 @@ export default {
         desc: '',
         file: [],
         question_id: '', //是否有关联问题， 问题的id   0为没有
+<<<<<<< HEAD
         question_num: '',
         company_name: '', //公司名称
         customer_type: '' //客户标签
+=======
+        question_num: ''
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       },
       height: '400px',
       hasMore: false,
@@ -129,27 +174,44 @@ export default {
         page: 1,
         pageSize: 50
       }
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   },
   watch: {
     dialogDetail(newVal) {
       if (newVal) {
+<<<<<<< HEAD
         this.dataList = []
         this.params.page = 1
         Object.assign(this.ruleForm, this.detail)
         if (this.ruleForm.question_id !== '0') {
           this.getAnswer()
+=======
+        this.dataList = [];
+        this.params.page = 1;
+        Object.assign(this.ruleForm, this.detail);
+        if (this.ruleForm.question_id !== '0') {
+          this.getAnswer();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         }
       }
     }
   },
   computed: {
     title() {
+<<<<<<< HEAD
       return `支持ID: ${this.ruleForm.support_id} 详情`
+=======
+      return `支持ID: ${this.ruleForm.support_id} 详情`;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
     async getAnswer(oldHeight = null) {
+<<<<<<< HEAD
       this.isLoadings = true
       this.params.question_id = this.ruleForm.question_id
       try {
@@ -182,6 +244,41 @@ export default {
     ChatBox
   }
 }
+=======
+      this.isLoadings = true;
+      this.params.question_id = this.ruleForm.question_id;
+      try {
+        let { data } = await getAnswer(this.params);
+        let snapData = data.reverse();
+        this.hasMore = data.length < this.params.pageSize;
+        this.dataList = [...snapData, ...this.dataList];
+        this.dataList.forEach(el => {
+          el.msgLoading = false;
+        });
+
+        if (this.$refs['chatBox'] !== undefined) {
+          this.$refs.chatBox.resetScrollHeight(oldHeight);
+        }
+      } catch (error) {
+        this._message(error);
+      }
+      this.isLoadings = false;
+    },
+    loadingData(oldHeight) {
+      //加载更多列表数据
+      this.params.page++;
+      this.getAnswer(oldHeight);
+    },
+    handleClose() {
+      this.$emit('update:dialogDetail', false);
+    }
+  },
+  components: {
+    SortList,
+    ChatBox
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -194,4 +291,8 @@ export default {
   border: 1px solid #f1f1f1;
   height: 400px;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

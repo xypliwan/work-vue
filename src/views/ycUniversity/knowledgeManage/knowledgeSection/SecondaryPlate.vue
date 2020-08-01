@@ -2,6 +2,7 @@
   <div>
     <div class="box-title">
       二级板块
+<<<<<<< HEAD
       <i
         class="iconfont icon-plus-square"
         @click="toDetail('0', {})"
@@ -29,10 +30,21 @@
             <div>
               {{ scope.$index + 1 + (params.page - 1) * params.pageSize }}
             </div>
+=======
+      <i class="iconfont icon-plus-square" @click="toDetail('0',{})" v-if="hasPermissionBtn('second-model-add')"></i>
+    </div>
+
+    <div class="table-box">
+      <el-table v-loading="tableLoading" :data="tableData" style="width: 100%" :row-style="this.$root.tableContentStyle" :header-cell-style="this.$root.tableTitileStyle" stripe>
+        <el-table-column header-align="center" align="center" label="NO" width="50" fixed>
+          <template slot-scope="scope">
+            <div>{{(scope.$index + 1) + (params.page-1)*params.pageSize}}</div>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </template>
         </el-table-column>
         <el-table-column label="状态" width="80">
           <template slot-scope="scope">
+<<<<<<< HEAD
             <div>
               {{
                 getMappingVal(
@@ -43,10 +55,14 @@
                 )
               }}
             </div>
+=======
+            <div>{{getMappingVal(openStatus,'status_code',scope.row.open_status,'status_name') }}</div>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
           </template>
         </el-table-column>
         <el-table-column label="面向客户" width="120">
           <template slot-scope="scope">
+<<<<<<< HEAD
             <div>
               {{
                 getMappingVal(
@@ -69,11 +85,19 @@
           prop="second_title"
           min-width="150px"
         ></el-table-column>
+=======
+            <div>{{getMappingVal(forthStatus,'status_code',scope.row.forth_status,'status_name') }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="一级板块标题" prop="first_title" min-width="120px"></el-table-column>
+        <el-table-column label="二级板块标题" prop="second_title" min-width="150px"></el-table-column>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         <el-table-column label="知识视角" min-width="200">
           <template slot-scope="scope">
             <div v-html="scope.row.eyesight.join('、<br/>')"></div>
           </template>
         </el-table-column>
+<<<<<<< HEAD
         <el-table-column
           label="建立人"
           prop="username"
@@ -104,6 +128,20 @@
                 @click="deleteItem(scope.row)"
                 v-if="hasPermissionBtn('second-model-del')"
               ></i>
+=======
+        <el-table-column label="建立人" prop="username" width="120"></el-table-column>
+        <el-table-column label="时间" width="220">
+          <template slot-scope="scope">
+            <div>建立时间: {{scope.row.created_at}}</div>
+            <div>修改时间: {{scope.row.updated_at}}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="80" header-align="center" align="center" fixed="right">
+          <template slot-scope="scope">
+            <div class="special-btn">
+              <i class="iconfont icon-xiugai-landi-" @click="toDetail('1',scope.row)" v-if="hasPermissionBtn('second-model-edit')"></i>
+              <i class="iconfont icon-minus-square" @click="deleteItem(scope.row)" v-if="hasPermissionBtn('second-model-del')"></i>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             </div>
           </template>
         </el-table-column>
@@ -115,7 +153,11 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="params.page"
+<<<<<<< HEAD
         :page-sizes="[10, 20, 30, 40]"
+=======
+        :page-sizes="[10,20,30,40]"
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
         :page-size="params.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -137,8 +179,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import EditSecondaryPlate from './EditSecondaryPlate'
 import { getSecondModelList, delSecondModel } from '@/api/ycUniversity'
+=======
+import EditSecondaryPlate from './EditSecondaryPlate';
+import { getSecondModelList, delSecondModel } from '@/api/ycUniversity';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     forthStatus: [Array], //是否面向客户
@@ -159,6 +206,7 @@ export default {
       tableLoading: false,
       tableData: [],
       total: null
+<<<<<<< HEAD
     }
   },
   created() {
@@ -167,6 +215,16 @@ export default {
   watch: {
     currentIndex() {
       this.getSecondModelList()
+=======
+    };
+  },
+  created() {
+    this.getSecondModelList();
+  },
+  watch: {
+    currentIndex(newVal) {
+      this.getSecondModelList();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
@@ -177,6 +235,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
+<<<<<<< HEAD
           this.delSecondModel(item.km_id)
         })
         .catch(() => {})
@@ -221,12 +280,62 @@ export default {
       this.flg = ''
       this.detailItem = {}
       this.dialogSecondary = false
+=======
+          this.delSecondModel(item.km_id);
+        })
+        .catch(() => {});
+    },
+    async delSecondModel(id) {
+      try {
+        let { message } = await delSecondModel({ km_id: id });
+        this._message(message, 'success');
+        this.getSecondModelList();
+      } catch (error) {
+        this._message(error);
+      }
+    },
+    async getSecondModelList() {
+      this.tableLoading = true;
+      this.params.pid = this.currentIndex;
+      try {
+        let { data, paginator } = await getSecondModelList(this.params);
+        this.tableData = data;
+        this.total = paginator.totalCount;
+      } catch (error) {
+        this._message(error);
+      }
+      this.tableLoading = false;
+    },
+    toDetail(flg, item) {
+      this.flg = flg;
+      this.detailItem = item;
+      this.dialogSecondary = true;
+    },
+    handleSizeChange(e) {
+      //设置显示一页展示多少条数
+      this.params.pageSize = e;
+      this.getSecondModelList();
+    },
+    handleCurrentChange(e) {
+      //点击第几页
+      this.params.page = e;
+      this.getSecondModelList();
+    },
+    close() {
+      this.flg = '';
+      this.detailItem = {};
+      this.dialogSecondary = false;
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   components: {
     EditSecondaryPlate
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <div class="quick-reply-box" :style="{ height: height }">
+=======
+  <div class="quick-reply-box" :style="{'height':height}">
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     <scroll>
       <div slot="dataList">
         <div class="template-title">
@@ -10,16 +14,21 @@
             </el-tabs>
           </div>
           <div class="right">
+<<<<<<< HEAD
             <el-link
               type="primary"
               class="add-template"
               @click="editVisible = true"
               >添加快捷模板</el-link
             >
+=======
+            <el-link type="primary" class="add-template" @click="editVisible = true">添加快捷模板</el-link>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
             <i class="el-icon-close icon-close" @click="close"></i>
           </div>
         </div>
         <div>
+<<<<<<< HEAD
           <el-select
             size="small"
             @change="handleChange"
@@ -48,12 +57,26 @@
                 <el-link type="primary" @click="getCont(item.content)"
                   >发送</el-link
                 >
+=======
+          <el-select size="small" @change="handleChange" filterable v-model="templateParams.category_id" placeholder="请选择">
+            <el-option v-for="(item,i) in typeList" :key="i" :label="item.category_name" :value="item.category_id"></el-option>
+          </el-select>
+        </div>
+        <div v-loading="boxLoading" class="template-list">
+          <div class="item" v-for="(ev,j) in templateList" :key="j">
+            <div class="category-name">{{ev.category_name}}</div>
+            <div class="category-list" v-for="(item,index) in ev.arr">
+              {{item.content}}
+              <span class="send-btn">
+                <el-link type="primary" @click="getCont(item.content)">发送</el-link>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
               </span>
             </div>
           </div>
         </div>
       </div>
     </scroll>
+<<<<<<< HEAD
     <edit-cont
       :editVisible="editVisible"
       @close="addClose"
@@ -61,13 +84,22 @@
       :plateList="typeList"
       :flg="flg"
     ></edit-cont>
+=======
+    <edit-cont :editVisible="editVisible" @close="addClose" @saveOk="saveOk" :plateList="typeList" :flg="flg"></edit-cont>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import Scroll from '_c/common/Scroll'
 import { getTemplateList, getTemplateFormat } from '@/api/replyTemplate'
 import EditCont from '@/views/replyTemplate/EditCont'
+=======
+import Scroll from '_c/common/Scroll';
+import { getTemplateList, getTemplateFormat } from '@/api/replyTemplate';
+import EditCont from '@/views/replyTemplate/EditCont';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   props: {
     height: String,
@@ -92,6 +124,7 @@ export default {
       typeList: [],
       templateList: [],
       boxLoading: false
+<<<<<<< HEAD
     }
   },
   created() {
@@ -106,10 +139,27 @@ export default {
     is_public_category() {
       this.templateParams.category_id = ''
       this.getTemplateList()
+=======
+    };
+  },
+  created() {
+    this.getTemplateList();
+  },
+  computed: {
+    is_public_category() {
+      return this.params.is_public_category;
+    }
+  },
+  watch: {
+    is_public_category(newVal) {
+      this.templateParams.category_id = '';
+      this.getTemplateList();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
     addClose() {
+<<<<<<< HEAD
       this.editVisible = false
     },
     saveOk() {
@@ -145,6 +195,43 @@ export default {
         this.getTemplateFormat()
       } catch (error) {
         this._message(error)
+=======
+      this.editVisible = false;
+    },
+    saveOk() {
+      this.editVisible = false;
+      this.getTemplateList();
+    },
+    close() {
+      this.$emit('close');
+    },
+    getCont(cont) {
+      this.$emit('getSelectCont', cont);
+    },
+    handleChange() {
+      this.getTemplateFormat();
+    },
+    async getTemplateFormat() {
+      //获取回复列表
+      this.boxLoading = true;
+      try {
+        let { data } = await getTemplateFormat(this.templateParams);
+        this.templateList = data;
+      } catch (error) {
+        this._message(error);
+      }
+      this.boxLoading = false;
+    },
+    async getTemplateList() {
+      //获取分类列表
+      this.templateParams.is_public_category = this.params.is_public_category;
+      try {
+        let { data } = await getTemplateList(this.params);
+        this.typeList = data;
+        this.getTemplateFormat();
+      } catch (error) {
+        this._message(error);
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
@@ -152,7 +239,11 @@ export default {
     Scroll,
     EditCont
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -219,4 +310,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78

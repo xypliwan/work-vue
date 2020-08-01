@@ -2,6 +2,7 @@
   <div>
     <div class="box-title">
       搜索结果
+<<<<<<< HEAD
       <span>共 {{ count }} 条</span>
       <i class="iconfont icon-guanbi close" @click="close"></i>
     </div>
@@ -18,6 +19,17 @@
       <div class="more" v-show="!isloading && !noMore" @click="loadMore">
         加载更多
       </div>
+=======
+      <span>共 {{count}} 条</span>
+      <i class="iconfont icon-guanbi close" @click="close"></i>
+    </div>
+    <div class="list-boxs">
+      <div v-for="(item,i) in list" :key="i" class="list-item" @click="toDetail(item)">
+        <div class="name">{{item.title}}</div>
+        <div class="content">{{toStr(item.content)}}</div>
+      </div>
+      <div class="more" v-show="!isloading && !noMore" @click="loadMore">加载更多</div>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       <div class="more load" v-show="isloading">
         <img src="@/assets/images/loading.gif" alt />
       </div>
@@ -27,9 +39,15 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { mapGetters, mapActions } from 'vuex'
 import { getSearchList } from '@/api/ycUniversity'
 import { delHtmlTag } from '_u/utils'
+=======
+import { mapGetters, mapActions } from 'vuex';
+import { getSearchList } from '@/api/ycUniversity';
+import { delHtmlTag } from '_u/utils';
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 export default {
   data() {
     return {
@@ -44,6 +62,7 @@ export default {
       count: 0,
       noMore: false,
       isloading: false
+<<<<<<< HEAD
     }
   },
   mounted() {
@@ -59,10 +78,28 @@ export default {
         this.params.page = 1
         this.list = []
         this.getSearchList()
+=======
+    };
+  },
+  mounted() {
+    if (this.searchFlg && this.keyword.length > 0) {
+      this.params.page = 1;
+      this.list = [];
+      this.getSearchList();
+    }
+  },
+  watch: {
+    searchFlg(newVal) {
+      if (this.keyword.length > 0) {
+        this.params.page = 1;
+        this.list = [];
+        this.getSearchList();
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
       }
     }
   },
   computed: {
+<<<<<<< HEAD
     ...mapGetters([
       'keyword',
       'isSearch',
@@ -74,11 +111,19 @@ export default {
       return str => {
         return delHtmlTag(str)
       }
+=======
+    ...mapGetters(['keyword', 'isSearch', 'currentSystemIdx', 'eyesightIndex', 'searchFlg']),
+    toStr(str) {
+      return str => {
+        return delHtmlTag(str);
+      };
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
     }
   },
   methods: {
     ...mapActions(['setIsSearch']),
     close() {
+<<<<<<< HEAD
       this.setIsSearch(false)
     },
     toDetail(item) {
@@ -106,6 +151,35 @@ export default {
     }
   }
 }
+=======
+      this.setIsSearch(false);
+    },
+    toDetail(item) {
+      let url = window.location.origin + '/#/detail/' + item.knowledge_id;
+      window.open(url, '_blank');
+    },
+    async getSearchList() {
+      this.isloading = true;
+      this.params.eyesight_id = this.eyesightIndex;
+      this.params.product_id = this.currentSystemIdx;
+      this.params.keyword = this.keyword;
+      try {
+        let { data, paginator } = await getSearchList(this.params);
+        this.noMore = data.length < this.params.pageSize ? true : false;
+        this.list = [...this.list, ...data];
+        this.count = paginator.totalCount;
+      } catch (error) {
+        this._message(error);
+      }
+      this.isloading = false;
+    },
+    loadMore() {
+      this.params.page++;
+      this.getSearchList();
+    }
+  }
+};
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
 </script>
 
 <style lang="scss" scoped>
@@ -163,4 +237,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 41772733ca44d6706986c1fb742036e1c412ca78
