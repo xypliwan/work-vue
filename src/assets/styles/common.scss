@@ -1,0 +1,142 @@
+.fl{
+  float: left;
+}
+
+.fr{
+  float: right;
+}
+.operat-box {       //操作按钮栏的全局样式
+    background: #f0f4f3;
+    padding: 10px 0px;
+    overflow: hidden;
+  }
+.pagination-box{    //分页div
+    position: fixed;
+    bottom: 3px;
+    right: 0;
+    width: calc(100% - 80px);
+    padding: 10px 30px;
+    text-align: right;
+    background: #fff;
+    z-index: 98;
+}
+
+.cz-box {         //表格操作了的分割线
+  /deep/ .el-divider {
+    background: #13a468;
+  }
+}
+
+
+.divid-line{      //分割线
+  background: #e7eaef;
+  height: 1px;
+  margin: 35px 0;
+}
+
+.search-box {
+  padding: 0 10px;
+  padding-bottom: 20px;
+  margin-top: 10px;
+}
+
+.dialog-footer{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.mw400{
+  min-width: 400px;
+  max-width: 450px;
+}
+
+
+//去掉input[number]的上下选择箭头
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+*{
+  font-family: "PingFang SC","Lantinghei SC","Microsoft YaHei","HanHei SC","Helvetica Neue","Open Sans",Arial,"Hiragino Sans GB","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/deep/ .el-select{
+  display: block!important;
+}
+
+//在线
+.icon-zaixian{
+  color: rgb(26, 173, 25);
+}
+
+//忙碌
+.icon-mangludaiconcopy{
+  color: rgb(230, 46, 46);
+}
+
+//休息
+.icon-xiuxi{
+  color: rgb(131, 191, 98);
+}
+
+//出差
+.icon-chucha{
+  color: rgb(108, 203, 255);
+}
+//生病中
+.icon-shengbing-{
+  color:#d22b31;
+}
+//会议
+.icon-huiyi{
+  color: rgb(245, 146, 79);
+}
+
+//离线
+.icon-icon1{
+  color: rgb(155, 155, 155);;
+}
+
+
+.special-btn {
+  font-size: 14px;
+  i {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .icon-xiugai-landi- {
+    color: #409eff;
+    margin-right: 8px;
+  }
+  .icon-minus-square {
+    color: #e80303;
+  }
+}
+
+.box-title {
+  padding: 10px 10px;
+  background: #f0f4f3;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #333;
+  overflow: hidden;
+  margin-bottom: 20px;
+  .add-icon {
+    font-size: 14px;
+    color: #00d208;
+    float: right;
+    cursor: pointer;
+  }
+}
+
+.icon-fuzhi1 {
+  color: #3f51b5;
+  margin-right: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}

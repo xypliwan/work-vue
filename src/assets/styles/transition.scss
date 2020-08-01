@@ -1,0 +1,130 @@
+/*
+ease：（逐渐变慢）
+linear：（匀速）
+ease-in：(加速)
+ease-out：（减速）
+ease-in-out：（加速然后减速）
+*/
+
+.fade-up-enter-active,
+.fade-up-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.fade-up-enter,
+.fade-leave-to {
+  transform: translate3d(0, 20%, 0) scale(0.9);
+  opacity: 0;
+}
+
+.fade-up-enter-to,
+.fade-up-leave {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+}
+
+.popup-slide-bottom-enter-active,
+.popup-slide-bottom-leave-active,
+.popup-slide-find-enter-active,
+.popup-slide-find-leave-active,
+.popup-slide-left-enter-active,
+.popup-slide-left-leave-active,
+.popup-slide-right-enter-active,
+.popup-slide-right-leave-active,
+.popup-slide-top-enter-active,
+.popup-slide-top-leave-active {
+  transition: all 0.2s linear;
+}
+
+//淡入
+.popup-slide-find-enter,
+.popup-slide-find-leave-to,
+.dialog-model-find-enter,
+.dialog-model-find-leave-to {
+  opacity: 0;
+}
+.popup-slide-find-enter-to,
+.popup-slide-find-leave-leave,
+.dialog-model-find-enter-to,
+.dialog-model-find-leave-leave {
+  opacity: 1;
+}
+
+//popup从最顶部往下滑
+.popup-slide-top-enter,
+.popup-slide-top-leave-to {
+  //初始位置
+  transform: translate3d(0, -100%, 0);
+  opacity: 0;
+}
+.popup-slide-top-enter-to,
+.popup-slide-top-leave-leave {
+  //结束位置
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+// popup从最底部往上滑
+.popup-slide-bottom-enter,
+.popup-slide-bottom-leave-to {
+  //初始位置
+  transform: translate3d(0, 100%, 0);
+  opacity: 0;
+}
+.popup-slide-bottom-enter-to,
+.popup-slide-bottom-leave-leave {
+  //结束位置
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+//从左往右滑
+.popup-slide-left-enter,
+.popup-slide-left-leave-to {
+  //初始位置
+  transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+}
+.popup-slide-left-enter-to,
+.popup-slide-left-leave-leave {
+  //结束位置
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+//从右往左滑
+.popup-slide-right-enter,
+.popup-slide-right-leave-to {
+  //初始位置
+  transform: translate3d(100%, 0, 0);
+  opacity: 0;
+}
+.popup-slide-right-enter-to,
+.popup-slide-right-leave-leave {
+  //结束位置
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.oms-enter {
+  opacity: 0;
+  transform: translate3d(0, -5px, 0);
+}
+.oms-enter-active {
+  transition: all 0.1s linear;
+}
+.oms-enter-to {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.oms-leave {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.oms-leave-active {
+  transition: all 0.1s linear;
+}
+.oms-leave-to {
+  opacity: 0;
+  transform: translate3d(0, 5px, 0);
+}
